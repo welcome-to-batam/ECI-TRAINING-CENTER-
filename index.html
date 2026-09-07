@@ -190,6 +190,36 @@
             font-size: 11px;
             border-top: 1px solid #34495e;
         }
+        /* --- STYLE BARU UTK DAFTAR FOTO GALLERY --- */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* Membagi menjadi 2 kolom di HP */
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .gallery-item-box {
+            background-color: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+        }
+        .gallery-item-box img {
+            width: 100%;
+            height: 110px; /* Tinggi kotak foto */
+            object-fit: cover; /* Memotong foto otomatis agar rapi terisi penuh */
+            display: block;
+            cursor: pointer;
+        }
+        .caption-text {
+            font-size: 11px;
+            color: #555;
+            padding: 8px;
+            text-align: center;
+            font-weight: 500;
+            background: #fafafa;
+            border-top: 1px solid #f0f0f0;
+        }
     </style>
 </head>
 <body>
@@ -504,20 +534,46 @@
         </div>
     </div>
 
-    <!-- HALAMAN GALLERY -->
+        <!-- HALAMAN GALLERY (SUDAH MENGGUNAKAN FOTO ASLI) -->
     <div class="custom-page" id="pageGallery">
         <h2 class="page-title">Gallery</h2>
         <div class="page-body">
-            <p>Dokumentasi ruang kelas, fasilitas, dan kegiatan pelatihan di ECI Training Center:</p>
+            <p>Dokumentasi ruang kelas, fasilitas, dan kegiatan pelatihan alumni ECI Training Center:</p>
+            
             <div class="gallery-grid">
-                <div class="gallery-box">Training Room 1</div>
-                <div class="gallery-box">Practice Room</div>
-                <div class="gallery-box">Computer Lab</div>
-                <div class="gallery-box">Certificates Box</div>
+                <!-- Foto 1 -->
+                <div class="gallery-item-box">
+                    <img src="alumni1.jpg" alt="Kegiatan Alumni ECI" onclick="perbesarGambar(this.src)">
+                    <div class="gallery-caption">Alumni Training 1</div>
+                </div>
+                
+                <!-- Foto 2 -->
+                <div class="gallery-item-box">
+                    <img src="alumni2.jpg" alt="Peserta Pelatihan ECI" onclick="perbesarGambar(this.src)">
+                    <div class="caption-text">Peserta Pelatihan 2</div>
+                </div>
+
+                <!-- Foto 3 -->
+                <div class="gallery-item-box">
+                    <img src="training1.jpg" alt="Ruang Kelas ECI" onclick="perbesarGambar(this.src)">
+                    <div class="caption-text">Ruang Kelas Praktek</div>
+                </div>
+
+                <!-- Foto 4 -->
+                <div class="gallery-item-box">
+                    <img src="training2.jpg" alt="Sertifikasi ECI" onclick="perbesarGambar(this.src)">
+                    <div class="caption-text">Sesi Sertifikasi</div>
+                </div>
             </div>
         </div>
     </div>
 
+    <!-- Kotak Pop-up untuk Memperbesar Gambar Saat Diklik (Keren buat HP!) -->
+    <div id="lightbox" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:20000; justify-content:center; align-items:center;" onclick="this.style.display='none'">
+        <img id="lightboxImg" src="" style="max-width:90%; max-height:80%; border-radius:4px; box-shadow:0 0 20px rgba(255,255,255,0.2);">
+        <p style="position:absolute; bottom:20px; color:white; font-size:12px;">Ketuk di mana saja untuk menutup</p>
+    </div>
+    
     <!-- HALAMAN CONTACT US -->
     <div class="custom-page" id="pageContact">
         <h2 class="page-title">Contact Us</h2>
@@ -644,6 +700,12 @@
             navigator.serviceWorker.register('sw.js')
                 .then(function() { console.log("PWA Aktif!"); })
                 .catch(function(err) { console.log("Gagal:", err); });
+        }
+
+        // Fungsi untuk memperbesar gambar galeri saat diklik di HP
+        function perbesarGambar(sumberGambar) {
+            document.getElementById('lightboxImg').src = sumberGambar;
+            document.getElementById('lightbox').style.display = 'flex';
         }
     </script>
 </body>
