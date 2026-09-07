@@ -301,7 +301,7 @@
     </footer>
 
         <!-- ======================================================= -->
-    <!-- HALAMAN BARU DETAIL KURSUS (TERSEMBUNYI SAAT PERTAMA) -->
+    <!-- CONTAINER HALAMAN DETAIL KURSUS DENGAN TABEL INFORMASI  -->
     <!-- ======================================================= -->
     <style>
         .detail-page {
@@ -311,9 +311,9 @@
             width: 100%;
             height: 100%;
             background-color: #ffffff;
-            z-index: 10000; /* Berada paling depan menutupi halaman utama */
-            display: none; /* Tersembunyi sebelum tombol diklik */
-            overflow-y: auto; /* Bisa digulung ke bawah jika teks panjang */
+            z-index: 10000;
+            display: none;
+            overflow-y: auto;
             padding-top: 70px;
             box-sizing: border-box;
         }
@@ -342,29 +342,94 @@
             font-size: 14px;
             color: #444;
             line-height: 1.7;
+            margin-bottom: 25px;
+        }
+        
+        /* --- STYLE TABEL INFORMASI KURSUS --- */
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+            font-size: 13px;
+        }
+        .info-table th, .info-table td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 12px;
+        }
+        .info-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .info-table td:first-child {
+            font-weight: bold;
+            color: #555;
+            width: 30%;
+        }
+
+        /* --- TOMBOL CONTACT US --- */
+        .btn-contact-container {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .btn-contact {
+            display: inline-block;
+            background-color: #2ecc71;
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+            padding: 12px 30px;
+            border-radius: 25px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
     </style>
 
     <div class="detail-page" id="detailPage">
         <div class="detail-container">
-            <!-- Tombol Kembali ke Halaman Utama -->
             <button class="btn-back" onclick="closeDetail()">← KEMBALI</button>
             
-            <!-- Tempat Judul dan Isi Teks Berubah Otomatis -->
             <h2 class="detail-title" id="courseTitle">Judul Kelas</h2>
-            <div class="detail-text" id="courseContent">Isi penjelasan lengkap materi kursus...</div>
+            <div class="detail-text" id="courseContent">Penjelasan...</div>
+            
+            <!-- TABEL INFORMASI DINAMIS -->
+            <table class="info-table">
+                <tr>
+                    <td>Harga</td>
+                    <td id="tHarga">-</td>
+                </tr>
+                <tr>
+                    <td>Durasi</td>
+                    <td id="tDurasi">-</td>
+                </tr>
+                <tr>
+                    <td>Harga Termasuk</td>
+                    <td id="tTermasuk">-</td>
+                </tr>
+                <tr>
+                    <td>Fasilitas</td>
+                    <td id="tFasilitas">-</td>
+                </tr>
+                <tr>
+                    <td>Persyaratan</td>
+                    <td id="tPersyaratan">-</td>
+                </tr>
+            </table>
+
+            <!-- TOMBOL WA / HUBUNGI -->
+            <div class="btn-contact-container">
+                <a href="https://wa.me" target="_blank" class="btn-contact">CONTACT US NOW</a>
+            </div>
         </div>
     </div>
-    <!-- ======================================================= -->
 
     <!-- HAK CIPTA -->
     <div class="footer-copyright">
         © 2026 ECITraining
     </div>
 
-    <!-- JAVASCRIPT LOGIKA KONTROL MENU & HALAMAN BARU -->
+    <!-- JAVASCRIPT LOGIKA -->
     <script>
-        // Logika Buka Tutup Menu Samping
         var menuBtn = document.getElementById('menuBtn');
         var sideMenu = document.getElementById('sideMenu');
         var overlayBtn = document.getElementById('overlayBtn');
@@ -377,54 +442,87 @@
         menuBtn.addEventListener('click', toggleMenu);
         overlayBtn.addEventListener('click', toggleMenu);
 
-
-        // DATA ISI HALAMAN BARU UNTUK MASING-MASING KURSUS
+        // DATA LENGKAP 1 - 6 BESERTA DATA TABELNYA
         var courseData = {
             sketchup: {
                 title: "SKETCHUP MODELLING Class",
-                text: "SketchUp adalah perangkat lunak pemodelan 3D yang sangat populer digunakan oleh arsitek, desainer interior, dan teknik sipil. Di ECI Training Center, Anda akan belajar dari dasar cara membuat denah bangunan, menaikkan dinding 3D, memberikan material tekstur realistis, hingga teknik rendering untuk menghasilkan gambar presentasi proyek yang memukau klien."
+                text: "SketchUp (sebelumnya Google SketchUp) adalah perangkat lunak pemodelan 3D yang mudah digunakan dan memiliki basis data ekstensif model buatan pengguna yang tersedia untuk diunduh. Anda dapat menggunakannya untuk membuat sketsa model untuk membantu semua jenis proyek bangunan furnitur, pembuatan video game, interior, dll.",
+                harga: "Hubungi Kami",
+                durasi: "32 Hours / 32 Jam (1 Jam = 45 Menit)",
+                termasuk: "Sertifikat, Course note, Handbook",
+                fasilitas: "Ruang Kelas, Alat Test, dan alat-alat inspeksi lainnya",
+                persyaratan: "Minimal Lulusan Sekolah Menengah Atas"
             },
             solidworks: {
                 title: "SOLIDWORKS Class",
-                text: "SOLIDWORKS merupakan software CAD standard industri manufaktur dan mekanikal untuk merancang mesin, komponen robotik, hingga struktur pabrik. Pada kelas ini, materi pembelajaran akan berfokus pada teknik part modeling 3D, perakitan komponen (assembly), pembuatan gambar kerja 2D teknis (drawing), serta simulasi kekuatan material beban mekanis."
+                text: "SOLIDWORKS adalah salah satu CAD software yang digunakan untuk merancang produk mekanikal, permesinan, dan pemodelan komponen 3D secara presisi dengan metode parametrik.",
+                harga: "Hubungi Kami",
+                durasi: "40 Jam (1 Jam = 45 Menit)",
+                termasuk: "Sertifikat, Modul Panduan, Handbook",
+                fasilitas: "Laboratorium Komputer, Ruang Full AC, Modul Cetak",
+                persyaratan: "Minimal Lulusan SMK Teknik / SMA / Sederajat"
             },
             primavera: {
                 title: "PRIMAVERA Class",
-                text: "Oracle Primavera P6 adalah software wajib bagi seorang Project Manager maupun Planning Engineer berskala besar (seperti proyek minyak & gas, konstruksi gedung, dan infrastruktur). Anda akan dilatih menyusun penjadwalan kerja (scheduling), mengelola alokasi resource pekerja/alat, mengontrol anggaran biaya, hingga melacak performa kemajuan proyek."
+                text: "Primavera adalah alat untuk menyusun manajemen proyek, program, dan portofolio berskala besar yang digunakan untuk melacak lini masa, kebutuhan material, serta anggaran biaya proyek industri.",
+                harga: "Hubungi Kami",
+                durasi: "32 Jam (1 Jam = 45 Menit)",
+                termasuk: "Sertifikat Resmi, Modul Pelatihan, File Latihan",
+                fasilitas: "Ruang Kelas Nyaman, Coffee Break, Alat Tulis Lengkap",
+                persyaratan: "Mahasiswa / Pekerja bidang Project Management / Sipil"
             },
             pdms: {
                 title: "Plant Design Management System (PDMS) Class",
-                text: "AVEVA PDMS digunakan secara khusus untuk pemodelan 3D kilang minyak, gas, dan pabrik kimia berskala masif. Materi pembelajaran mencakup dasar pembuatan layout peralatan (equipment), perancangan jalur pipa industri kompleks (piping routing), struktur besi penyangga (structural), hingga pembuatan dokumen teknis otomatis berupa Isometrik."
+                text: "PDMS adalah singkatan dari Plant Design Management System yang merupakan sebuah program pemodelan 3D pipa dan kilang minyak komprehensif untuk dunia industri oil & gas.",
+                harga: "Hubungi Kami",
+                durasi: "45 Jam (1 Jam = 45 Menit)",
+                termasuk: "Sertifikat Kelulusan, Panduan Khusus, Piping Data Book",
+                fasilitas: "Komputer Spesifikasi Tinggi, Ruang Ujian, Tempat Parkir Luas",
+                persyaratan: "D3 / S1 Teknik (Mesin/Kimia/Sipil/Perkapalan)"
             },
             tekla: {
                 title: "TEKLA STRUCTURE MODELLING Class",
-                text: "Tekla Structures merupakan software berbasis BIM (Building Information Modeling) paling mutakhir untuk merancang struktur bangunan baja dan beton secara detail. Anda akan mempelajari pembuatan permodelan 3D sambungan baut/las fabrikasi baja yang super presisi, penulangan beton otomatis, serta pembuatan laporan material konstruksi (Bill of Quantity) secara langsung."
+                text: "Tekla Structures merupakan sebuah software konstruksi berbasis BIM yang memungkinkan kita membuat suatu desain atau model struktur bangunan baja atau beton secara detail 3D.",
+                harga: "Hubungi Kami",
+                durasi: "36 Jam (1 Jam = 45 Menit)",
+                termasuk: "Sertifikat Kompetensi, Ringkasan Materi, Template Gambar",
+                fasilitas: "Ruang Kelas Modern, Akses Wifi Internet Cepat, Konsultasi Guru",
+                persyaratan: "Mengerti Dasar Gambar Teknik / Konstruksi Bangunan"
             },
             autocad: {
                 title: "Autocad 2D, 3D And Drafting Class",
-                text: "AutoCAD adalah pondasi mendasar utama gambar teknik di seluruh dunia kerja engineering. Di kelas ini, Anda akan diajarkan menguasai pembuatan gambar kerja 2D potong-melintang (drafting) yang rapi sesuai aturan standard proyek, pembuatan notasi ukuran skala, hingga visualisasi gambar modeling komponen 3D dasar."
+                text: "Autocad adalah software gambar teknik dasar yang hampir wajib dikuasai oleh pekerja teknik karena fleksibilitasnya di semua bidang pengerjaan proyek perencanaan wilayah maupun mesin.",
+                harga: "Hubungi Kami",
+                durasi: "30 Jam (1 Jam = 45 Menit)",
+                termasuk: "Sertifikat, Kumpulan Library Gambar, Handbook",
+                fasilitas: "Ruang Kelas Teori & Praktek, Bimbingan Intensif, Modul PDF",
+                persyaratan: "Umum / Semua Kalangan yang ingin belajar Gambar Teknik"
             }
         };
 
-        // Fungsi Membuka Halaman Baru Detail Kursus
+        // Fungsi Tampil Halaman Detail & Isi Tabel Otomatis
         function openDetail(courseKey) {
             var data = courseData[courseKey];
             if(data) {
                 document.getElementById('courseTitle').innerText = data.title;
                 document.getElementById('courseContent').innerText = data.text;
+                
+                // Isi Baris Tabel
+                document.getElementById('tHarga').innerText = data.harga;
+                document.getElementById('tDurasi').innerText = data.durasi;
+                document.getElementById('tTermasuk').innerText = data.termasuk;
+                document.getElementById('tFasilitas').innerText = data.fasilitas;
+                document.getElementById('tPersyaratan').innerText = data.persyaratan;
+
                 document.getElementById('detailPage').style.display = 'block';
-                // Menggulung halaman otomatis ke bagian atas saat dibuka
                 document.getElementById('detailPage').scrollTop = 0; 
             }
         }
 
-        // Fungsi Menutup Halaman Detail Kursus
         function closeDetail() {
             document.getElementById('detailPage').style.display = 'none';
         }
 
-
-        // Registrasi Service Worker PWA
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('sw.js')
                 .then(function() { console.log("PWA Aktif!"); })
