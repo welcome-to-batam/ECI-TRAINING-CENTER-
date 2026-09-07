@@ -203,16 +203,16 @@
     <!-- Lapisan Gelap Belakang Menu -->
     <div class="overlay" id="overlayBtn"></div>
 
-    <!-- SLIDE MENU -->
+        <!-- SLIDE MENU BERFUNGSI NYATA -->
     <div class="side-menu" id="sideMenu">
-        <a href="#home" class="menu-item" onclick="toggleMenu()">HOME</a>
-        <a href="#training" class="menu-item" onclick="toggleMenu()">TRAINING</a>
-        <a href="#about" class="menu-item" onclick="toggleMenu()">ABOUT US</a>
-        <a href="#gallery" class="menu-item" onclick="toggleMenu()">GALLERY</a>
-        <a href="#verification" class="menu-item" onclick="toggleMenu()">CERTIFICATE VERIFICATION</a>
-        <a href="#contact" class="menu-item" onclick="toggleMenu()">CONTACT US</a>
+        <a href="javascript:void(0)" class="menu-item" onclick="navigateTo('home')">HOME</a>
+        <a href="javascript:void(0)" class="menu-item" onclick="navigateTo('home')">TRAINING</a>
+        <a href="javascript:void(0)" class="menu-item" onclick="navigateTo('pageAbout')">ABOUT US</a>
+        <a href="javascript:void(0)" class="menu-item" onclick="navigateTo('pageGallery')">GALLERY</a>
+        <a href="javascript:void(0)" class="menu-item" onclick="navigateTo('home')">CERTIFICATE VERIFICATION</a>
+        <a href="javascript:void(0)" class="menu-item" onclick="navigateTo('pageContact')">CONTACT US</a>
     </div>
-
+    
     <!-- KONTEN UTAMA -->
     <div class="main-content">
         
@@ -423,12 +423,125 @@
         </div>
     </div>
 
-    <!-- HAK CIPTA -->
+        <!-- ======================================================= -->
+    <!-- HALAMAN MULTI-MENU (ABOUT, GALLERY, CONTACT)            -->
+    <!-- ======================================================= -->
+    <style>
+        .custom-page {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #ffffff;
+            z-index: 999; /* Berada di depan halaman utama */
+            display: none; /* Sembunyi sebelum menu diklik */
+            overflow-y: auto;
+            padding: 80px 20px 40px 20px;
+            box-sizing: border-box;
+        }
+        .page-title {
+            font-size: 22px;
+            font-weight: bold;
+            color: #1a252f;
+            border-bottom: 3px solid #2ecc71;
+            padding-bottom: 8px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+        .page-body {
+            font-size: 14px;
+            color: #444;
+            line-height: 1.7;
+        }
+        
+        /* Gaya Khusus Halaman Gallery */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .gallery-box {
+            background-color: #eef2f3;
+            height: 120px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #7f8c8d;
+            font-weight: bold;
+            border: 1px dashed #bdc3c7;
+        }
+
+        /* Gaya Khusus Halaman Contact */
+        .contact-card {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid #3498db;
+        }
+        .contact-label {
+            font-weight: bold;
+            color: #2c3e50;
+            font-size: 13px;
+        }
+        .contact-value {
+            font-size: 14px;
+            color: #555;
+            margin-top: 3px;
+        }
+    </style>
+
+    <!-- HALAMAN ABOUT US -->
+    <div class="custom-page" id="pageAbout">
+        <h2 class="page-title">About Us</h2>
+        <div class="page-body">
+            <p><strong>ECI TRAINING CENTER</strong> adalah lembaga pelatihan kerja profesional yang berfokus pada pengembangan keahlian teknik (Engineering) dan software industri modern.</p>
+            <p>Kami berkomitmen memberikan solusi cerdas bagi para lulusan baru maupun profesional untuk meningkatkan kompetensi kerja agar siap bersaing di dunia industri global.</p>
+        </div>
+    </div>
+
+    <!-- HALAMAN GALLERY -->
+    <div class="custom-page" id="pageGallery">
+        <h2 class="page-title">Gallery</h2>
+        <div class="page-body">
+            <p>Dokumentasi ruang kelas, fasilitas, dan kegiatan pelatihan di ECI Training Center:</p>
+            <div class="gallery-grid">
+                <div class="gallery-box">Training Room 1</div>
+                <div class="gallery-box">Practice Room</div>
+                <div class="gallery-box">Computer Lab</div>
+                <div class="gallery-box">Certificates Box</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- HALAMAN CONTACT US -->
+    <div class="custom-page" id="pageContact">
+        <h2 class="page-title">Contact Us</h2>
+        <div class="page-body">
+            <div class="contact-card">
+                <div class="contact-label">📍 ALAMAT KANTOR</div>
+                <div class="contact-value">Batam, Kepulauan Riau, Indonesia</div>
+            </div>
+            <div class="contact-card" style="border-left-color: #2ecc71;">
+                <div class="contact-label">📞 TELEPON / WHATSAPP</div>
+                <div class="contact-value">+62 812-3456-7890</div>
+            </div>
+            <div class="contact-card" style="border-left-color: #e67e22;">
+                <div class="contact-label">✉️ EMAIL RESMI</div>
+                <div class="contact-value">info@eci.co.id</div>
+            </div>
+        </div>
+    </div>
+
+      <!-- HAK CIPTA -->
     <div class="footer-copyright">
         © 2026 ECITraining
     </div>
 
-    <!-- JAVASCRIPT LOGIKA -->
     <script>
         var menuBtn = document.getElementById('menuBtn');
         var sideMenu = document.getElementById('sideMenu');
@@ -442,78 +555,82 @@
         menuBtn.addEventListener('click', toggleMenu);
         overlayBtn.addEventListener('click', toggleMenu);
 
-        // DATA LENGKAP 1 - 6 BESERTA DATA TABELNYA
+
+        // FUNGSI NAVIGASI PINDAH HALAMAN MENU
+        function navigateTo(pageId) {
+            // 1. Tutup menu samping otomatis
+            sideMenu.classList.remove('active');
+            overlayBtn.classList.remove('active');
+            
+            // 2. Sembunyikan semua halaman tambahan & detail yang mungkin sedang buka
+            var pages = document.querySelectorAll('.custom-page, .detail-page');
+            pages.forEach(function(p) {
+                p.style.display = 'none';
+            });
+            
+            // 3. Jika mengklik HOME, maka kita biarkan semua tersembunyi (kembali ke menu utama)
+            if (pageId === 'home') {
+                window.scrollTo(0, 0);
+                return;
+            }
+            
+            // 4. Munculkan halaman yang dipilih
+            var targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                targetPage.style.display = 'block';
+                targetPage.scrollTop = 0;
+            }
+        }
+
+
+        // DATA TABEL DETAIL KURSUS 
         var courseData = {
             sketchup: {
                 title: "SKETCHUP MODELLING Class",
-                text: "SketchUp (sebelumnya Google SketchUp) adalah perangkat lunak pemodelan 3D yang mudah digunakan dan memiliki basis data ekstensif model buatan pengguna yang tersedia untuk diunduh. Anda dapat menggunakannya untuk membuat sketsa model untuk membantu semua jenis proyek bangunan furnitur, pembuatan video game, interior, dll.",
-                harga: "Hubungi Kami",
-                durasi: "32 Hours / 32 Jam (1 Jam = 45 Menit)",
-                termasuk: "Sertifikat, Course note, Handbook",
-                fasilitas: "Ruang Kelas, Alat Test, dan alat-alat inspeksi lainnya",
-                persyaratan: "Minimal Lulusan Sekolah Menengah Atas"
+                text: "SketchUp adalah perangkat lunak pemodelan 3D yang mudah digunakan dan fleksibel untuk kebutuhan arsitektur dan desain interior...",
+                harga: "Hubungi Kami", durasi: "32 Jam", termasuk: "Sertifikat, Course note", fasilitas: "Ruang Kelas, Alat Test", persyaratan: "Minimal Lulusan SMA"
             },
             solidworks: {
                 title: "SOLIDWORKS Class",
-                text: "SOLIDWORKS adalah salah satu CAD software yang digunakan untuk merancang produk mekanikal, permesinan, dan pemodelan komponen 3D secara presisi dengan metode parametrik.",
-                harga: "Hubungi Kami",
-                durasi: "40 Jam (1 Jam = 45 Menit)",
-                termasuk: "Sertifikat, Modul Panduan, Handbook",
-                fasilitas: "Laboratorium Komputer, Ruang Full AC, Modul Cetak",
-                persyaratan: "Minimal Lulusan SMK Teknik / SMA / Sederajat"
+                text: "SOLIDWORKS adalah salah satu CAD software yang digunakan untuk merancang produk mekanikal secara presisi...",
+                harga: "Hubungi Kami", durasi: "40 Jam", termasuk: "Sertifikat, Modul", fasilitas: "Laboratorium Komputer", persyaratan: "Minimal Lulusan SMK/SMA"
             },
             primavera: {
                 title: "PRIMAVERA Class",
-                text: "Primavera adalah alat untuk menyusun manajemen proyek, program, dan portofolio berskala besar yang digunakan untuk melacak lini masa, kebutuhan material, serta anggaran biaya proyek industri.",
-                harga: "Hubungi Kami",
-                durasi: "32 Jam (1 Jam = 45 Menit)",
-                termasuk: "Sertifikat Resmi, Modul Pelatihan, File Latihan",
-                fasilitas: "Ruang Kelas Nyaman, Coffee Break, Alat Tulis Lengkap",
-                persyaratan: "Mahasiswa / Pekerja bidang Project Management / Sipil"
+                text: "Primavera adalah alat untuk menyusun manajemen proyek berskala besar yang digunakan untuk melacak lini masa...",
+                harga: "Hubungi Kami", durasi: "32 Jam", termasuk: "Sertifikat Resmi", fasilitas: "Ruang Full AC", persyaratan: "Umum / Pekerja Sipil"
             },
             pdms: {
                 title: "Plant Design Management System (PDMS) Class",
-                text: "PDMS adalah singkatan dari Plant Design Management System yang merupakan sebuah program pemodelan 3D pipa dan kilang minyak komprehensif untuk dunia industri oil & gas.",
-                harga: "Hubungi Kami",
-                durasi: "45 Jam (1 Jam = 45 Menit)",
-                termasuk: "Sertifikat Kelulusan, Panduan Khusus, Piping Data Book",
-                fasilitas: "Komputer Spesifikasi Tinggi, Ruang Ujian, Tempat Parkir Luas",
-                persyaratan: "D3 / S1 Teknik (Mesin/Kimia/Sipil/Perkapalan)"
+                text: "PDMS merupakan sebuah program pemodelan 3D pipa dan kilang minyak komprehensif untuk dunia industri...",
+                harga: "Hubungi Kami", durasi: "45 Jam", termasuk: "Sertifikat, Piping Book", fasilitas: "PC High Spec", persyaratan: "D3 / S1 Teknik"
             },
             tekla: {
                 title: "TEKLA STRUCTURE MODELLING Class",
-                text: "Tekla Structures merupakan sebuah software konstruksi berbasis BIM yang memungkinkan kita membuat suatu desain atau model struktur bangunan baja atau beton secara detail 3D.",
-                harga: "Hubungi Kami",
-                durasi: "36 Jam (1 Jam = 45 Menit)",
-                termasuk: "Sertifikat Kompetensi, Ringkasan Materi, Template Gambar",
-                fasilitas: "Ruang Kelas Modern, Akses Wifi Internet Cepat, Konsultasi Guru",
-                persyaratan: "Mengerti Dasar Gambar Teknik / Konstruksi Bangunan"
+                text: "Tekla Structures merupakan sebuah software konstruksi berbasis BIM untuk mendesain struktur baja secara detail...",
+                harga: "Hubungi Kami", durasi: "36 Jam", termasuk: "Sertifikat Kompetensi", fasilitas: "Ruang Kelas Modern", persyaratan: "Mengerti Gambar Teknik"
             },
             autocad: {
                 title: "Autocad 2D, 3D And Drafting Class",
-                text: "Autocad adalah software gambar teknik dasar yang hampir wajib dikuasai oleh pekerja teknik karena fleksibilitasnya di semua bidang pengerjaan proyek perencanaan wilayah maupun mesin.",
-                harga: "Hubungi Kami",
-                durasi: "30 Jam (1 Jam = 45 Menit)",
-                termasuk: "Sertifikat, Kumpulan Library Gambar, Handbook",
-                fasilitas: "Ruang Kelas Teori & Praktek, Bimbingan Intensif, Modul PDF",
-                persyaratan: "Umum / Semua Kalangan yang ingin belajar Gambar Teknik"
+                text: "Autocad adalah software gambar teknik dasar yang hampir wajib dikuasai oleh pekerja di seluruh bidang teknik...",
+                harga: "Hubungi Kami", durasi: "30 Jam", termasuk: "Sertifikat, Library Gambar", fasilitas: "Bimbingan Intensif", persyaratan: "Semua Kalangan"
             }
         };
 
-        // Fungsi Tampil Halaman Detail & Isi Tabel Otomatis
         function openDetail(courseKey) {
+            // Tutup halaman kustom lain jika ada yang terbuka
+            var customPages = document.querySelectorAll('.custom-page');
+            customPages.forEach(function(p) { p.style.display = 'none'; });
+
             var data = courseData[courseKey];
             if(data) {
                 document.getElementById('courseTitle').innerText = data.title;
                 document.getElementById('courseContent').innerText = data.text;
-                
-                // Isi Baris Tabel
                 document.getElementById('tHarga').innerText = data.harga;
                 document.getElementById('tDurasi').innerText = data.durasi;
                 document.getElementById('tTermasuk').innerText = data.termasuk;
                 document.getElementById('tFasilitas').innerText = data.fasilitas;
                 document.getElementById('tPersyaratan').innerText = data.persyaratan;
-
                 document.getElementById('detailPage').style.display = 'block';
                 document.getElementById('detailPage').scrollTop = 0; 
             }
