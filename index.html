@@ -434,7 +434,6 @@
 
     <!-- HALAMAN ABOUT US -->
     <div class="custom-page" id="pageAbout">
-        <button class="btn-back" onclick="navigateTo('home')">← KEMBALI</button>
         <h2 class="page-title">About Us</h2>
         <div class="page-body">
             <p><strong>ECI TRAINING CENTER</strong> adalah lembaga pelatihan kerja profesional yang berfokus pada pengembangan keahlian teknik (Engineering) dan software industri modern.</p>
@@ -444,25 +443,28 @@
 
     <!-- HALAMAN GALLERY -->
     <div class="custom-page" id="pageGallery">
-        <button class="btn-back" onclick="navigateTo('home')">← KEMBALI</button>
         <h2 class="page-title">Gallery</h2>
         <div class="page-body">
             <p>Dokumentasi ruang kelas, fasilitas, dan kegiatan pelatihan alumni ECI Training Center:</p>
             <div class="gallery-grid">
+                
                 <div class="gallery-item-box">
                     <img src="alumni1.jpg" alt="Alumni ECI" onclick="perbesarGambar(this.src)">
                     <div class="caption-text">Alumni Training 1</div>
                 </div>
+                
                 <div class="gallery-item-box">
                     <img src="alumni2.jpg" alt="Alumni ECI" onclick="perbesarGambar(this.src)">
                     <div class="caption-text">Peserta Pelatihan 2</div>
                 </div>
+                
                 <div class="gallery-item-box">
-                    <img src="training1.jpg" alt="Alumni ECI" onclick="perbesarGambar(this.src)">
+                    <img src="alumni3.jpg" alt="Alumni ECI" onclick="perbesarGambar(this.src)">
                     <div class="caption-text">Ruang Kelas Praktek</div>
                 </div>
+                
                 <div class="gallery-item-box">
-                    <img src="training2.jpg" alt="Alumni ECI" onclick="perbesarGambar(this.src)">
+                    <img src="alumni4.jpg" alt="Alumni ECI" onclick="perbesarGambar(this.src)">
                     <div class="caption-text">Sesi Sertifikasi</div>
                 </div>
             </div>
@@ -471,7 +473,6 @@
 
     <!-- HALAMAN CONTACT US -->
     <div class="custom-page" id="pageContact">
-        <button class="btn-back" onclick="navigateTo('home')">← KEMBALI</button>
         <h2 class="page-title">Contact Us</h2>
         <div class="page-body">
             <div class="contact-card">
@@ -480,6 +481,7 @@
                     Jl. Central Raya, Ruko Central Business Sukajadi, Blok.A No.12B, Sukajadi, Batam Kota, Batam City, Riau Islands 29444
                 </div>
             </div>
+            
             <div class="contact-card" style="border-left-color: #2ecc71;">
                 <div class="contact-label">📞 WHATSAPP ADMIN</div>
                 <div class="contact-value">
@@ -492,6 +494,7 @@
                     </a>
                 </div>
             </div>
+            
             <div class="contact-card" style="border-left-color: #e67e22;">
                 <div class="contact-label">✉️ EMAIL RESMI</div>
                 <div class="contact-value">
@@ -506,10 +509,11 @@
         </div>
     </div>
 
-    <!-- HALAMAN DETAIL KURSUS (READ MORE PWA) -->
+     <!-- HALAMAN DETAIL KURSUS (BERSIH TANPA TOMBOL KOTAK HITAM) -->
     <div class="detail-page" id="detailPage">
-        <button class="btn-back" onclick="closeDetail()">← KEMBALI</button>
-        <h2 class="detail-title" id="courseTitle">Judul Kelas</h2>
+        <!-- Judul yang berfungsi sebagai tombol kembali jika diklik -->
+        <h2 class="detail-title" id="courseTitle" onclick="closeDetail()" style="cursor: pointer;">Judul Kelas</h2>
+        <span onclick="closeDetail()" style="color: #5cb85c; font-size: 13px; font-weight: bold; cursor: pointer; display: inline-block; margin-bottom: 15px;">← Kembali ke Daftar Kelas</span>
         <div class="detail-text" id="courseContent">Penjelasan...</div>
         
         <table class="info-table">
