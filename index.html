@@ -220,6 +220,26 @@
             background: #fafafa;
             border-top: 1px solid #f0f0f0;
         }
+         /* --- STYLE BARU TOMBOL AKSI KONTAK --- */
+        .btn-action-contact {
+            display: inline-block;
+            color: white;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 5px;
+            width: 100%; /* Membujur penuh di area kartu agar mudah diklik */
+            box-sizing: border-box;
+        }
+        .btn-action-contact:active {
+            transform: scale(0.98); /* Efek membal saat ditekan di HP */
+        }
     </style>
 </head>
 <body>
@@ -574,22 +594,48 @@
         <p style="position:absolute; bottom:20px; color:white; font-size:12px;">Ketuk di mana saja untuk menutup</p>
     </div>
     
-    <!-- HALAMAN CONTACT US -->
+    <!-- HALAMAN CONTACT US (AKTIF & BERFUNGSI) -->
     <div class="custom-page" id="pageContact">
         <h2 class="page-title">Contact Us</h2>
         <div class="page-body">
+            
+            <!-- 1. ALAMAT -->
             <div class="contact-card">
                 <div class="contact-label">📍 ALAMAT KANTOR</div>
-                <div class="contact-value">Batam, Kepulauan Riau, Indonesia</div>
+                <div class="contact-value" id="officeAddress">
+                    Alamat : Jl. Central Raya. Ruko Central Business Sukajadi, Blok.A No.12B, Sukajadi, Batam Kota, Batam City, Riau Islands 29444
+                </div>
             </div>
+            
+            <!-- 2. WHATSAPP DENGAN TEKS OTOMATIS -->
             <div class="contact-card" style="border-left-color: #2ecc71;">
-                <div class="contact-label">📞 TELEPON / WHATSAPP</div>
-                <div class="contact-value">+62 812-3456-7890</div>
+                <div class="contact-label">📞 WHATSAPP ADMIN</div>
+                <div class="contact-value">
+                    <p style="margin: 0 0 10px 0; color: #555;">Klik tombol di bawah ini untuk langsung chat dengan Admin ECI:</p>
+                    <!-- Ganti nomor 6281234567890 di bawah dengan nomor WhatsApp asli Anda nanti -->
+                    <a href="https://wa.me "628117752226" 
+                       target="_blank" 
+                       class="btn-action-contact" 
+                       style="background-color: #2ecc71;">
+                       💬 CHAT VIA WHATSAPP
+                    </a>
+                </div>
             </div>
+            
+            <!-- 3. EMAIL LANGSUNG BUKA GMAIL -->
             <div class="contact-card" style="border-left-color: #e67e22;">
                 <div class="contact-label">✉️ EMAIL RESMI</div>
-                <div class="contact-value">info@eci.co.id</div>
+                <div class="contact-value">
+                    <p style="margin: 0 0 10px 0; color: #555;">Klik tombol di bawah ini untuk berkirim pesan email resmi:</p>
+                    <!-- Tautan mailto otomatis memicu aplikasi email/Gmail di HP -->
+                    <a href="mailto:info@eci.co.id?subject=Tanya%20Informasi%20Training%20ECI" 
+                       class="btn-action-contact" 
+                       style="background-color: #e67e22;">
+                       ✉️ KIRIM EMAIL KAMI
+                    </a>
+                </div>
             </div>
+
         </div>
     </div>
 
