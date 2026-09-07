@@ -225,7 +225,7 @@
             </div>
             <h3 class="class-title">SKETCHUP MODELLING Class</h3>
             <p class="class-desc">SketchUp (sebelumnya Google SketchUp) adalah perangkat lunak pemodelan 3D yang mudah digunakan dan fleksibel untuk kebutuhan arsitektur dan desain interior...</p>
-            <a href="#read-sketchup" class="btn-readmore">READ MORE</a>
+            <a href="javascript:void(0)" onclick="openDetail('sketchup')" class="btn-readmore">READ MORE</a>
         </div>
 
         <!-- 2. KELAS SOLIDWORKS -->
@@ -235,7 +235,7 @@
             </div>
             <h3 class="class-title">SOLIDWORKS Class</h3>
             <p class="class-desc">SOLIDWORKS adalah salah satu CAD software yang digunakan untuk merancang produk mekanikal, permesinan, dan pemodelan komponen 3D secara presisi...</p>
-            <a href="#read-solidworks" class="btn-readmore">READ MORE</a>
+            <a href="javascript:void(0)" onclick="openDetail('solidworks')" class="btn-readmore">READ MORE</a>
         </div>
 
         <!-- 3. KELAS PRIMAVERA -->
@@ -245,7 +245,7 @@
             </div>
             <h3 class="class-title">PRIMAVERA Class</h3>
             <p class="class-desc">Primavera adalah alat untuk menyusun manajemen proyek, program, dan portofolio berskala besar yang digunakan untuk melacak lini masa dan anggaran...</p>
-            <a href="#read-primavera" class="btn-readmore">READ MORE</a>
+            <a href="javascript:void(0)" onclick="openDetail('primavera')" class="btn-readmore">READ MORE</a>
         </div>
 
         <!-- 4. KELAS PDMS -->
@@ -255,7 +255,7 @@
             </div>
             <h3 class="class-title">Plant Design Management System (PDMS) Class</h3>
             <p class="class-desc">PDMS adalah singkatan dari Plant Design Management System yang merupakan sebuah program pemodelan 3D pipa dan kilang minyak komprehensif untuk dunia industri...</p>
-            <a href="#read-pdms" class="btn-readmore">READ MORE</a>
+            <a href="javascript:void(0)" onclick="openDetail('pdms')" class="btn-readmore">READ MORE</a>
         </div>
 
         <!-- 5. KELAS TEKLA -->
@@ -265,7 +265,7 @@
             </div>
             <h3 class="class-title">TEKLA STRUCTURE MODELLING Class</h3>
             <p class="class-desc">Tekla Structures merupakan sebuah software yang memungkinkan kita membuat suatu desain atau model struktur bangunan baja atau beton secara detail 3D...</p>
-            <a href="#read-tekla" class="btn-readmore">READ MORE</a>
+            <a href="javascript:void(0)" onclick="openDetail('tekla')" class="btn-readmore">READ MORE</a>
         </div>
 
         <!-- 6. KELAS AUTOCAD -->
@@ -275,7 +275,7 @@
             </div>
             <h3 class="class-title">Autocad 2D, 3D And Drafting Class</h3>
             <p class="class-desc">Autocad adalah software gambar teknik yang hampir wajib dikuasai oleh pekerja di dunia teknik karena fleksibilitasnya di semua bidang pengerjaan proyek...</p>
-            <a href="#read-autocad" class="btn-readmore">READ MORE</a>
+            <a href="javascript:void(0)" onclick="openDetail('autocad')" class="btn-readmore">READ MORE</a>
         </div>
 
     </div>
@@ -300,13 +300,71 @@
         </div>
     </footer>
 
+        <!-- ======================================================= -->
+    <!-- HALAMAN BARU DETAIL KURSUS (TERSEMBUNYI SAAT PERTAMA) -->
+    <!-- ======================================================= -->
+    <style>
+        .detail-page {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #ffffff;
+            z-index: 10000; /* Berada paling depan menutupi halaman utama */
+            display: none; /* Tersembunyi sebelum tombol diklik */
+            overflow-y: auto; /* Bisa digulung ke bawah jika teks panjang */
+            padding-top: 70px;
+            box-sizing: border-box;
+        }
+        .detail-container {
+            padding: 20px;
+        }
+        .btn-back {
+            background-color: #2c3e50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        .detail-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #1a252f;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+        .detail-text {
+            font-size: 14px;
+            color: #444;
+            line-height: 1.7;
+        }
+    </style>
+
+    <div class="detail-page" id="detailPage">
+        <div class="detail-container">
+            <!-- Tombol Kembali ke Halaman Utama -->
+            <button class="btn-back" onclick="closeDetail()">← KEMBALI</button>
+            
+            <!-- Tempat Judul dan Isi Teks Berubah Otomatis -->
+            <h2 class="detail-title" id="courseTitle">Judul Kelas</h2>
+            <div class="detail-text" id="courseContent">Isi penjelasan lengkap materi kursus...</div>
+        </div>
+    </div>
+    <!-- ======================================================= -->
+
     <!-- HAK CIPTA -->
     <div class="footer-copyright">
         © 2026 ECITraining
     </div>
 
-    <!-- JAVASCRIPT LOGIKA KONTROL MENU -->
+    <!-- JAVASCRIPT LOGIKA KONTROL MENU & HALAMAN BARU -->
     <script>
+        // Logika Buka Tutup Menu Samping
         var menuBtn = document.getElementById('menuBtn');
         var sideMenu = document.getElementById('sideMenu');
         var overlayBtn = document.getElementById('overlayBtn');
@@ -319,6 +377,54 @@
         menuBtn.addEventListener('click', toggleMenu);
         overlayBtn.addEventListener('click', toggleMenu);
 
+
+        // DATA ISI HALAMAN BARU UNTUK MASING-MASING KURSUS
+        var courseData = {
+            sketchup: {
+                title: "SKETCHUP MODELLING Class",
+                text: "SketchUp adalah perangkat lunak pemodelan 3D yang sangat populer digunakan oleh arsitek, desainer interior, dan teknik sipil. Di ECI Training Center, Anda akan belajar dari dasar cara membuat denah bangunan, menaikkan dinding 3D, memberikan material tekstur realistis, hingga teknik rendering untuk menghasilkan gambar presentasi proyek yang memukau klien."
+            },
+            solidworks: {
+                title: "SOLIDWORKS Class",
+                text: "SOLIDWORKS merupakan software CAD standard industri manufaktur dan mekanikal untuk merancang mesin, komponen robotik, hingga struktur pabrik. Pada kelas ini, materi pembelajaran akan berfokus pada teknik part modeling 3D, perakitan komponen (assembly), pembuatan gambar kerja 2D teknis (drawing), serta simulasi kekuatan material beban mekanis."
+            },
+            primavera: {
+                title: "PRIMAVERA Class",
+                text: "Oracle Primavera P6 adalah software wajib bagi seorang Project Manager maupun Planning Engineer berskala besar (seperti proyek minyak & gas, konstruksi gedung, dan infrastruktur). Anda akan dilatih menyusun penjadwalan kerja (scheduling), mengelola alokasi resource pekerja/alat, mengontrol anggaran biaya, hingga melacak performa kemajuan proyek."
+            },
+            pdms: {
+                title: "Plant Design Management System (PDMS) Class",
+                text: "AVEVA PDMS digunakan secara khusus untuk pemodelan 3D kilang minyak, gas, dan pabrik kimia berskala masif. Materi pembelajaran mencakup dasar pembuatan layout peralatan (equipment), perancangan jalur pipa industri kompleks (piping routing), struktur besi penyangga (structural), hingga pembuatan dokumen teknis otomatis berupa Isometrik."
+            },
+            tekla: {
+                title: "TEKLA STRUCTURE MODELLING Class",
+                text: "Tekla Structures merupakan software berbasis BIM (Building Information Modeling) paling mutakhir untuk merancang struktur bangunan baja dan beton secara detail. Anda akan mempelajari pembuatan permodelan 3D sambungan baut/las fabrikasi baja yang super presisi, penulangan beton otomatis, serta pembuatan laporan material konstruksi (Bill of Quantity) secara langsung."
+            },
+            autocad: {
+                title: "Autocad 2D, 3D And Drafting Class",
+                text: "AutoCAD adalah pondasi mendasar utama gambar teknik di seluruh dunia kerja engineering. Di kelas ini, Anda akan diajarkan menguasai pembuatan gambar kerja 2D potong-melintang (drafting) yang rapi sesuai aturan standard proyek, pembuatan notasi ukuran skala, hingga visualisasi gambar modeling komponen 3D dasar."
+            }
+        };
+
+        // Fungsi Membuka Halaman Baru Detail Kursus
+        function openDetail(courseKey) {
+            var data = courseData[courseKey];
+            if(data) {
+                document.getElementById('courseTitle').innerText = data.title;
+                document.getElementById('courseContent').innerText = data.text;
+                document.getElementById('detailPage').style.display = 'block';
+                // Menggulung halaman otomatis ke bagian atas saat dibuka
+                document.getElementById('detailPage').scrollTop = 0; 
+            }
+        }
+
+        // Fungsi Menutup Halaman Detail Kursus
+        function closeDetail() {
+            document.getElementById('detailPage').style.display = 'none';
+        }
+
+
+        // Registrasi Service Worker PWA
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('sw.js')
                 .then(function() { console.log("PWA Aktif!"); })
