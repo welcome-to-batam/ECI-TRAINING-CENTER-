@@ -18,7 +18,7 @@
             color: #333;
         }
 
-        /* --- 1. HEADER ATAS GELAP GARANG --- */
+        /* --- 1. HEADER ATAS GELAP GARANG (FIX TENGGELAM) --- */
         .header-bar {
             background-color: #1a252f;
             display: flex;
@@ -29,11 +29,13 @@
             top: 0;
             left: 0;
             right: 0;
-            z-index: 1000;
+            /* z-index kita naikkan ke 10000 agar mutlak berada di depan halaman apa pun */
+            z-index: 10000; 
             box-shadow: 0 2px 8px rgba(0,0,0,0.3);
             height: 60px;
             box-sizing: border-box;
         }
+        
         .logo-container-header {
             height: 100%;
             display: flex;
