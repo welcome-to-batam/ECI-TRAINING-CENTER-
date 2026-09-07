@@ -280,10 +280,50 @@
 
     </div>
 
-    <!-- BACKGROUND FOOTER GELAP -->
+        <!-- BACKGROUND FOOTER GELAP -->
     <footer class="site-footer">
         <div class="footer-section">
             <div class="footer-title">TRAINING</div>
             <ul class="footer-links">
                 <li><a href="#ndt">NDT ASNT Level 2</a></li>
-                
+                <li><a href="#engineering">Engineering</a></li>
+                <li><a href="#rope">Rope Access</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-section">
+            <div class="footer-title">GALLERY</div>
+            <ul class="footer-links">
+                <li><a href="#training-room">Training Room</a></li>
+                <li><a href="#practice-room">Practice Room</a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <!-- HAK CIPTA -->
+    <div class="footer-copyright">
+        © 2026 ECITraining
+    </div>
+
+    <!-- JAVASCRIPT LOGIKA KONTROL MENU -->
+    <script>
+        var menuBtn = document.getElementById('menuBtn');
+        var sideMenu = document.getElementById('sideMenu');
+        var overlayBtn = document.getElementById('overlayBtn');
+
+        function toggleMenu() {
+            sideMenu.classList.toggle('active');
+            overlayBtn.classList.toggle('active');
+        }
+
+        menuBtn.addEventListener('click', toggleMenu);
+        overlayBtn.addEventListener('click', toggleMenu);
+
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js')
+                .then(function() { console.log("PWA Aktif!"); })
+                .catch(function(err) { console.log("Gagal:", err); });
+        }
+    </script>
+</body>
+</html>
