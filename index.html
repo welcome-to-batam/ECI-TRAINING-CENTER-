@@ -91,7 +91,7 @@
 
         /* --- 3. KONTEN UTAMA --- */
         .main-content {
-            margin-top: 75px; /* Jarak agar tidak tertutup header */
+            margin-top: 75px; 
             padding: 15px;
         }
         
@@ -121,17 +121,11 @@
             margin-bottom: 15px;
             overflow: hidden;
         }
-        .logo-container img {
-            max-height: 100%;
-            max-width: 100%;
-            object-fit: contain;
-        }
-        /* Jika belum ada file gambarnya, pakai teks logo ini dulu */
         .logo-placeholder {
-            font-size: 28px;
+            font-size: 26px;
             font-weight: 900;
-            color: #e74c3c;
             letter-spacing: -1px;
+            text-align: center;
         }
         .class-title {
             font-size: 15px;
@@ -146,7 +140,6 @@
             line-height: 1.6;
             margin: 0 0 15px 0;
         }
-        /* Tombol Hijau READ MORE */
         .btn-readmore {
             display: inline-block;
             background-color: #5cb85c;
@@ -157,10 +150,50 @@
             padding: 8px 16px;
             border-radius: 4px;
             text-transform: uppercase;
-            transition: background 0.2s;
         }
-        .btn-readmore:hover {
-            background-color: #4cae4c;
+
+        /* --- 5. BACKGROUND BAWAH (FOOTER GELAP) --- */
+        .site-footer {
+            background-color: #2c3e50;
+            color: #a6b1bd;
+            padding: 30px 20px;
+            font-size: 13px;
+        }
+        .footer-section {
+            margin-bottom: 25px;
+        }
+        .footer-title {
+            color: white;
+            font-size: 15px;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            letter-spacing: 0.5px;
+        }
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        .footer-links a {
+            color: #7f8c8d;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .footer-links a:hover {
+            color: white;
+        }
+        /* Bagian Copyright Paling Bawah */
+        .footer-copyright {
+            background-color: #243342;
+            text-align: center;
+            padding: 15px;
+            color: #7f8c8d;
+            font-size: 11px;
+            border-top: 1px solid #34495e;
         }
     </style>
 </head>
@@ -185,7 +218,7 @@
         <a href="#contact" class="menu-item" onclick="toggleMenu()">CONTACT US</a>
     </div>
 
-    <!-- KONTEN DAFTAR KELAS -->
+    <!-- KONTEN UTAMA -->
     <div class="main-content">
         
         <div class="section-title">Our Training Programs</div>
@@ -193,7 +226,6 @@
         <!-- 1. KELAS SKETCHUP -->
         <div class="class-card">
             <div class="logo-container">
-                <!-- Gantilah 'sketchup-logo.png' dengan file gambar asli Anda nanti -->
                 <div class="logo-placeholder" style="color: #e67e22;">SketchUp</div>
             </div>
             <h3 class="class-title">SKETCHUP MODELLING Class</h3>
@@ -231,28 +263,28 @@
             <a href="#read-pdms" class="btn-readmore">READ MORE</a>
         </div>
 
+        <!-- 5. KELAS TEKLA (BARU) -->
+        <div class="class-card">
+            <div class="logo-container">
+                <div class="logo-placeholder" style="color: #d35400;">Tekla <span style="font-size:14px; display:block; font-weight:normal; color:#2980b9;">Structures</span></div>
+            </div>
+            <h3 class="class-title">TEKLA STRUCTURE MODELLING Class</h3>
+            <p class="class-desc">Tekla Structures merupakan sebuah software yang memungkinkan kita membuat suatu desain atau model struktur bangunan baja atau beton secara detail 3D...</p>
+            <a href="#read-tekla" class="btn-readmore">READ MORE</a>
+        </div>
+
+        <!-- 6. KELAS AUTOCAD (BARU) -->
+        <div class="class-card">
+            <div class="logo-container">
+                <div class="logo-placeholder" style="color: #c0392b; font-style: italic;">AUTOCAD</div>
+            </div>
+            <h3 class="class-title">Autocad 2D, 3D And Drafting Class</h3>
+            <p class="class-desc">Autocad adalah software gambar teknik yang hampir wajib dikuasai oleh pekerja di dunia teknik karena fleksibilitasnya di semua bidang pengerjaan proyek...</p>
+            <a href="#read-autocad" class="btn-readmore">READ MORE</a>
+        </div>
+
     </div>
 
-    <!-- JAVASCRIPT BUKA/TUTUP MENU -->
-    <script>
-        const menuBtn = document.getElementById('menuBtn');
-        const sideMenu = document.getElementById('sideMenu');
-        const overlayBtn = document.getElementById('overlayBtn');
-
-        function toggleMenu() {
-            sideMenu.classList.toggle('active');
-            overlayBtn.classList.toggle('active');
-        }
-
-        menuBtn.addEventListener('click', toggleMenu);
-        overlayBtn.addEventListener('click', toggleMenu);
-
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('sw.js')
-                .then(() => console.log("Aplikasi ECI Terupdate Berhasil Dimuat!"))
-                .catch(err => console.log("PWA gagal dimuat:", err));
-        }
-    </script>
-</body>
-</html>
-
+    <!-- BACKGROUND BAWAH (FOOTER GELAP) Sesuai Gambar -->
+    <footer class="site-footer">
+        
