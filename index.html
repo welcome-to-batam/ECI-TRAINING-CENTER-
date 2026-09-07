@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECI TRAINING CENTER</title>
+    
+    <!-- Menghubungkan konfigurasi aplikasi -->
+    <link rel="manifest" href="manifest.json">
+
+    <style>
+        /* Gaya Sederhana untuk Menu Navigasi */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            background-color: #2c3e50;
+            padding: 15px;
+            color: white;
+            text-align: center;
+            font-weight: bold;
+        }
+        .menu-container {
+            background-color: #34495e;
+            display: flex;
+            flex-direction: column;
+        }
+        .menu-item {
+            padding: 15px 20px;
+            color: white;
+            text-decoration: none;
+            border-bottom: 1px solid #2c3e50;
+            font-size: 16px;
+        }
+        .menu-item:hover {
+            background-color: #1abc9c;
+        }
+        .content {
+            padding: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Nama Aplikasi -->
+    <div class="navbar">
+        ECI TRAINING CENTER
+    </div>
+
+    <!-- Menu Sesuai Gambar Anda -->
+    <div class="menu-container">
+        <a href="#home" class="menu-item">HOME</a>
+        <a href="#training" class="menu-item">TRAINING</a>
+        <a href="#about" class="menu-item">ABOUT US</a>
+        <a href="#gallery" class="menu-item">GALLERY</a>
+        <a href="#verification" class="menu-item">CERTIFICATE VERIFICATION</a>
+        <a href="#contact" class="menu-item">CONTACT US</a>
+    </div>
+
+    <!-- Isi Halaman -->
+    <div class="content">
+        <h2>Selamat Datang di Aplikasi ECI TRAINING CENTER</h2>
+        <p>Smart Solutions For Great Opportunities</p>
+    </div>
+
+    <!-- Script pendaftaran aplikasi agar bisa diinstal di browser Chrome -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js')
+                .then(() => console.log("Aplikasi ECI siap diinstal!"))
+                .catch(err => console.log("Gagal mendaftarkan aplikasi:", err));
+        }
+    </script>
+</body>
+</html>
+
