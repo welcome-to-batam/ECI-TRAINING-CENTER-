@@ -398,6 +398,23 @@
     max-width: 90%;
     max-height: 90%;
 }
+        /* Kunci scroll body saat modal/page kebuka */
+body.no-scroll {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+}
+
+/* Perbaiki detail-page biar bener2 full dan gak tembus */
+.detail-page, .custom-page {
+    position: fixed; /* sudah ada, kita pertahankan */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh; /* pakai vh biar bener2 full layar HP */
+    overflow-y: auto; /* scroll cuma di dalam page ini */
+    -webkit-overflow-scrolling: touch; /* biar scroll di iOS enak */
+}
     </style>
 </head>
 <body>
@@ -729,13 +746,29 @@
                 .catch(function(err) { console.log("Gagal:", err); });
         }
 
-        // Bikin semua gambar di gallery bisa di klik untuk zoom
-document.querySelectorAll('.gallery-item-box img').forEach(img => {
+        function openPage(pageId) {
+    document.getElementById(pageId).style.display = 'block';
+    document.body.classList.add('no-scroll'); // <-- TAMBAH INI. Kunci scroll belakang
+}
+
+function closePage(pageId) {
+    document.getElementById(pageId).style.display = 'none';
+    document.body.classList.remove('no-scroll'); // <-- TAMBAH INI. Buka lagi scroll
+}
+
+        document.querySelectorAll('.gallery-item-box img').forEach(img => {
     img.onclick = function() {
         document.getElementById('imgZoom').style.display = 'flex';
         document.getElementById('imgZoomSrc').src = this.src;
+        document.body.classList.add('no-scroll'); // Kunci background biar gak ke scroll/ke zoom
     }
 });
+
+// Pas klik overlay untuk nutup
+document.getElementById('imgZoom').onclick = function() {
+    this.style.display='none';
+    document.body.classList.remove('no-scroll'); // Buka lagi scroll
+}
     </script>
 </body>
 </html>
