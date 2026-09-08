@@ -9,7 +9,15 @@
     <!-- Menghubungkan konfigurasi aplikasi PWA -->
     <link rel="manifest" href="manifest.json">
 
-    <style>
+    <style>        
+        /* --- STYLE DASAR --- */
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f1f3f5;
+            color: #333;
+        }
         /* --- PENGIKAT KHUSUS AGAR TETAP MODE MOBILE DI LAYAR PC/DESKTOP --- */
         html {
             background-color: #333333; /* Memberi warna latar belakang gelap di sisi luar jika dibuka di PC */
@@ -46,15 +54,6 @@
         .side-menu.active {
             left: calc(50% - 240px) !important;
             transform: translateX(240px);
-        }
-        
-        /* --- STYLE DASAR --- */
-        body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f1f3f5;
-            color: #333;
         }
 
         /* --- 1. HEADER ATAS GELAP GARANG (FIX TENGGELAM) --- */
