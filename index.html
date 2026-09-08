@@ -336,85 +336,6 @@
             font-size: 11px;
             border-top: 1px solid #34495e;
         }
-
-        /* --- 11. KUNCI MODE PWA TETAP MOBILE --- */
-@media (display-mode: standalone) {
-    html, body {
-        width: 100% !important;
-        max-width: 500px !important; /* Kunci biar gak selebar desktop */
-        margin: 0 auto !important;   /* Biar di tengah kalau layarnya lebar */
-        background-color: #f1f3f5;
-    }
-
-    /* Bungkus semua konten biar gak melebar */
-    .header-bar {
-        max-width: 500px !important;
-        left: 50% !important;
-        transform: translateX(-50%) !important; /* Biar header ikut di tengah */
-    }
-
-    .hero-image-banner {
-        max-width: 500px !important;
-        margin-left: auto !important;
-        margin-right: auto !important;
-    }
-
-    .main-content, .custom-page, .detail-page, .site-footer {
-        max-width: 500px !important;
-        margin: 0 auto !important;
-    }
-
-    /* Gallery biar tetap 2 kolom, gak jadi 4 kolom pas desktop */
-    .gallery-grid {
-        grid-template-columns: 1fr 1fr !important;
-    }
-}
-
-        @media (display-mode: standalone) {
-    html {
-        /* Ini yg nahan layout biar gak melebar pas di zoom out */
-        overflow-x: hidden; 
-    }
-    body {
-        max-width: 500px !important;
-        margin: 0 auto !important;
-    }
-        }
-
-        /* Overlay zoom gambar */
-.img-zoom-overlay {
-    display: none;
-    position: fixed;
-    z-index: 20001;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.9);
-    justify-content: center;
-    align-items: center;
-}
-.img-zoom-overlay img {
-    max-width: 90%;
-    max-height: 90%;
-}
-        /* Kunci scroll body saat modal/page kebuka */
-body.no-scroll {
-    overflow: hidden;
-    position: fixed;
-    width: 100%;
-}
-
-/* Perbaiki detail-page biar bener2 full dan gak tembus */
-.detail-page, .custom-page {
-    position: fixed; /* sudah ada, kita pertahankan */
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh; /* pakai vh biar bener2 full layar HP */
-    overflow-y: auto; /* scroll cuma di dalam page ini */
-    -webkit-overflow-scrolling: touch; /* biar scroll di iOS enak */
-}
     </style>
 </head>
 <body>
@@ -637,10 +558,6 @@ body.no-scroll {
         <img id="lightboxImg" src="" style="max-width:90%; max-height:80%; border-radius:4px;">
     </div>
     
-    <div id="imgZoom" class="img-zoom-overlay" onclick="this.style.display='none'">
-    <img id="imgZoomSrc">
-    </div>
-
     <!-- ======================================================= -->
     <!-- LOGIKA JAVASCRIPT KONTROL SEMUA MENU                    -->
     <!-- ======================================================= -->
@@ -745,30 +662,6 @@ body.no-scroll {
                 .then(function() { console.log("PWA Aktif!"); })
                 .catch(function(err) { console.log("Gagal:", err); });
         }
-
-        function openPage(pageId) {
-    document.getElementById(pageId).style.display = 'block';
-    document.body.classList.add('no-scroll'); // <-- TAMBAH INI. Kunci scroll belakang
-}
-
-function closePage(pageId) {
-    document.getElementById(pageId).style.display = 'none';
-    document.body.classList.remove('no-scroll'); // <-- TAMBAH INI. Buka lagi scroll
-}
-
-        document.querySelectorAll('.gallery-item-box img').forEach(img => {
-    img.onclick = function() {
-        document.getElementById('imgZoom').style.display = 'flex';
-        document.getElementById('imgZoomSrc').src = this.src;
-        document.body.classList.add('no-scroll'); // Kunci background biar gak ke scroll/ke zoom
-    }
-});
-
-// Pas klik overlay untuk nutup
-document.getElementById('imgZoom').onclick = function() {
-    this.style.display='none';
-    document.body.classList.remove('no-scroll'); // Buka lagi scroll
-}
     </script>
 </body>
 </html>
