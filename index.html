@@ -112,13 +112,57 @@
         .main-content {
             padding: 15px;
         }
+                /* --- POLISAN TOMBOL "OUR TRAINING PROGRAMS" BERKILAU & MENONJOL --- */
         .section-title {
-            font-size: 18px;
+            display: block;
+            text-align: center;
+            font-size: 16px;
             font-weight: bold;
-            margin: 20px 0 15px 0;
-            border-left: 4px solid #5cb85c;
-            padding-left: 10px;
-            color: #2c3e50;
+            color: #ffffff;
+            /* Memakai gradasi warna hijau gelap ke terang khas ECI */
+            background: linear-gradient(135deg, #1abc9c, #2ecc71); 
+            padding: 14px 20px;
+            margin: 25px auto 20px auto;
+            border-radius: 30px; /* Membuat sudutnya melengkung halus */
+            text-transform: uppercase;
+            text-decoration: none;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            box-sizing: border-box;
+            width: 90%; /* Agar ukurannya pas di tengah layar HP */
+            
+            /* Efek bayangan tegas agar terlihat menonjol ke depan (3D) */
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.4); 
+            
+            /* Persiapan untuk efek kilatan cahaya */
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.1s;
+        }
+
+        /* Efek Membal Saat Ditekan di HP */
+        .section-title:active {
+            transform: scale(0.96);
+            box-shadow: 0 2px 8px rgba(46, 204, 113, 0.4);
+        }
+
+        /* Animasi Kilatan Cahaya Berjalan (Shimmer) */
+        .section-title::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -50%;
+            width: 30%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.5) 50%, rgba(255,255,255,0) 100%);
+            transform: skewX(-25deg);
+            /* Menjalankan kilatan cahaya otomatis setiap 3 detik secara terus-menerus */
+            animation: kilatCahaya 3s infinite ease-in-out; 
+        }
+
+        @keyframes kilatCahaya {
+            0% { left: -30%; }
+            100% { left: 130%; }
         }
 
         /* --- 5. STYLE CARD DAFTAR KELAS --- */
@@ -367,7 +411,10 @@
     <!-- KONTEN UTAMA HALAMAN UTAMA -->
     <div class="main-content">
         
-        <div class="section-title">Our Training Programs</div>
+        <!-- Mengubah teks menjadi tombol aksi loncat ke halaman kapsul training -->
+        <a href="javascript:void(0)" onclick="navigateTo('pageTraining')" class="section-title">
+            Our Training Programs
+        </a>
 
         <!-- 1. SKETCHUP -->
         <div class="class-card">
