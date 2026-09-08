@@ -337,6 +337,39 @@
             font-size: 11px;
             border-top: 1px solid #34495e;
         }
+
+        /* --- 11. KUNCI MODE PWA TETAP MOBILE --- */
+@media (display-mode: standalone) {
+    html, body {
+        width: 100% !important;
+        max-width: 500px !important; /* Kunci biar gak selebar desktop */
+        margin: 0 auto !important;   /* Biar di tengah kalau layarnya lebar */
+        background-color: #f1f3f5;
+    }
+
+    /* Bungkus semua konten biar gak melebar */
+    .header-bar {
+        max-width: 500px !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important; /* Biar header ikut di tengah */
+    }
+
+    .hero-image-banner {
+        max-width: 500px !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+
+    .main-content, .custom-page, .detail-page, .site-footer {
+        max-width: 500px !important;
+        margin: 0 auto !important;
+    }
+
+    /* Gallery biar tetap 2 kolom, gak jadi 4 kolom pas desktop */
+    .gallery-grid {
+        grid-template-columns: 1fr 1fr !important;
+    }
+}
     </style>
 </head>
 <body>
