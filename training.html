@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECI TRAINING CENTER</title>
+    
+    <!-- Menghubungkan konfigurasi aplikasi PWA -->
+    <link rel="manifest" href="manifest.json">
+
+    <style>        
+        /* --- STYLE DASAR --- */
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f1f3f5;
+            color: #333;
+        }
+
+        /* --- 1. HEADER ATAS GELAP GARANG (FIX TENGGELAM) --- */
+        .header-bar {
+            background-color: #1a252f;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 15px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            /* z-index kita naikkan ke 10000 agar mutlak berada di depan halaman apa pun */
+            z-index: 10000; 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            height: 60px;
+            box-sizing: border-box;
+        }
+        
+        .logo-container-header {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            background-color: #ffffff;
+            padding: 2px 5px;
+            border-radius: 4px;
+        }
+        .logo-container-header img {
+            height: 36px;
+            width: auto;
+            object-fit: contain;
+        }
+        .menu-toggle {
+            font-size: 26px;
+            background: none;
+            border: none;
+            color: #ffffff;
+            cursor: pointer;
+        }
+
+        /* --- 2. BANNER FOTO BESAR --- */
+        .hero-image-banner {
+            width: 100%;
+            margin-top: 60px;
+            display: block;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        /* --- 3. SLIDE MENU --- */
+        .side-menu {
+            position: fixed;
+            top: 0;
+            left: -280px;
+            width: 250px;
+            height: 100%;
+            background-color: #2c3e50;
+            z-index: 9999;
+            transition: 0.3s ease;
+            padding-top: 70px;
+            box-shadow: 5px 0 15px rgba(0,0,0,0.3);
+        }
+        .side-menu.active {
+            left: 0; 
+        }
+        .menu-item {
+            display: block;
+            padding: 15px 20px;
+            color: #ecf0f1;
+            text-decoration: none;
+            border-bottom: 1px solid #34495e;
+            font-size: 15px;
+            font-weight: 500;
+        }
+        .menu-item:hover {
+            background-color: #5cb85c;
+            color: white;
+        }
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 998;
+        }
+        .overlay.active {
+            display: block;
+        }
+
+        /* --- 4. KONTEN UTAMA --- */
+        .main-content {
+            padding: 15px;
+        }
+        .section-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 20px 0 15px 0;
+            border-left: 4px solid #5cb85c;
+            padding-left: 10px;
+            color: #2c3e50;
+        }
+
+        /* --- 5. STYLE CARD DAFTAR KELAS --- */
+        .class-card {
+            background: white;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
+            padding: 20px;
+            border: 1px solid #e2e8f0;
+        }
+        .logo-container {
+            height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+        .logo-placeholder {
+            font-size: 26px;
+            font-weight: 900;
+            letter-spacing: -1px;
+            text-align: center;
+        }
+        .class-title {
+            font-size: 15px;
+            font-weight: bold;
+            color: #333;
+            margin: 0 0 8px 0;
+            text-transform: uppercase;
+        }
+        .class-desc {
+            font-size: 12px;
+            color: #777;
+            line-height: 1.6;
+            margin: 0 0 15px 0;
+        }
+        .btn-readmore {
+            display: inline-block;
+            background-color: #5cb85c;
+            color: white;
+            text-decoration: none;
+            font-size: 11px;
+            font-weight: bold;
+            padding: 8px 16px;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+
+        /* --- 6. STYLE PAGES MULTI-MENU & DETAIL --- */
+        .custom-page, .detail-page {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #ffffff;
+            z-index: 2000;
+            display: none;
+            overflow-y: auto;
+            padding: 80px 20px 40px 20px;
+            box-sizing: border-box;
+        }
+        .page-title, .detail-title {
+            font-size: 22px;
+            font-weight: bold;
+            color: #1a252f;
+            border-bottom: 3px solid #5cb85c;
+            padding-bottom: 8px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+        .page-body, .detail-text {
+            font-size: 14px;
+            color: #444;
+            line-height: 1.7;
+        }
+        .btn-back {
+            background-color: #2c3e50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        /* --- 7. STYLE GALLERY --- */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .gallery-item-box {
+            background-color: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+        }
+        .gallery-item-box img {
+            width: 100%;
+            height: 110px;
+            object-fit: cover;
+            display: block;
+            cursor: pointer;
+        }
+        .caption-text {
+            font-size: 11px;
+            color: #555;
+            padding: 8px;
+            text-align: center;
+            font-weight: 500;
+            background: #fafafa;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        /* --- 8. STYLE CONTACT US --- */
+        .contact-card {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid #3498db;
+            text-align: left;
+        }
+        .contact-label {
+            font-weight: bold;
+            color: #2c3e50;
+            font-size: 13px;
+        }
+        .contact-value {
+            font-size: 14px;
+            color: #555;
+            margin-top: 5px;
+        }
+        .btn-action-contact {
+            display: inline-block;
+            color: white;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-transform: uppercase;
+            margin-top: 10px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        /* --- 9. STYLE TABEL DETAIL --- */
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0 30px 0;
+            font-size: 13px;
+        }
+        .info-table th, .info-table td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 12px;
+        }
+        .info-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .info-table td:first-child {
+            font-weight: bold;
+            color: #555;
+            width: 35%;
+        }
+
+        /* --- 10. FOOTER GELAP --- */
+        .site-footer {
+            background-color: #2c3e50;
+            color: #a6b1bd;
+            padding: 30px 20px;
+            font-size: 13px;
+            margin-top: 40px;
+            text-align: left;
+        }
+        .footer-section {
+            margin-bottom: 25px;
+        }
+        .footer-title {
+            color: white;
+            font-size: 15px;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            letter-spacing: 0.5px;
+        }
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        .footer-links a {
+            color: #a6b1bd;
+            text-decoration: none;
+        }
+        .footer-copyright {
+            background-color: #243342;
+            text-align: center;
+            padding: 15px;
+            color: #7f8c8d;
+            font-size: 11px;
+            border-top: 1px solid #34495e;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER ATAS GELAP GARANG -->
+    <div class="header-bar">
+        <div class="logo-container-header">
+            <img src="logo-eci.png" alt="ECI Training Center">
+        </div>
+        <button class="menu-toggle" id="menuBtn">☰</button>
+    </div>
+
+    <!-- BANNER FOTO BESAR -->
+    <img src="banner-alumni.jpg" alt="ECI Passionate Journey" class="hero-image-banner">
+
+    <!-- Lapisan Gelap Belakang Menu -->
+    <div class="overlay" id="overlayBtn"></div>
+
+    <!-- SLIDE MENU -->
+    <div class="side-menu" id="sideMenu">
+        <a href="javascript:void(0)" class="menu-item" onclick="navigateTo('home')">HOME</a>
+        <a href="javascript:void(0)" class="menu-item" onclick="navigateTo('home')">TRAINING</a>
+        <a href="javascript:void(0)" class="menu-item" onclick="navigateTo('pageAbout')">ABOUT US</a>
+        <a href="javascript:void(0)" class="menu-item" onclick="navigateTo('pageGallery')">GALLERY</a>
+        <a href="javascript:void(0)" class="menu-item" onclick="navigateTo('home')">CERTIFICATE VERIFICATION</a>
+        <a href="javascript:void(0)" class="menu-item" onclick="navigateTo('pageContact')">CONTACT US</a>
+    </div>
+
+    <!-- KONTEN UTAMA HALAMAN UTAMA -->
+    <div class="main-content">
+        
+        <div class="section-title">Our Training Programs</div>
+
+        <!-- 1. SKETCHUP -->
+        <div class="class-card">
+            <div class="logo-container">
+                <div class="logo-placeholder" style="color: #e67e22;">SketchUp</div>
+            </div>
+            <h3 class="class-title">SKETCHUP MODELLING Class</h3>
+            <p class="class-desc">SketchUp (sebelumnya Google SketchUp) adalah perangkat lunak pemodelan 3D yang mudah digunakan dan fleksibel untuk kebutuhan arsitektur...</p>
+            <a href="javascript:void(0)" onclick="openDetail('sketchup')" class="btn-readmore">READ MORE</a>
+        </div>
+
+        <!-- 2. SOLIDWORKS -->
+        <div class="class-card">
+            <div class="logo-container">
+                <div class="logo-placeholder" style="color: #c0392b;">SOLIDWORKS</div>
+            </div>
+            <h3 class="class-title">SOLIDWORKS Class</h3>
+            <p class="class-desc">SOLIDWORKS adalah salah satu CAD software yang digunakan untuk merancang produk mekanikal, permesinan, dan pemodelan komponen 3D...</p>
+            <a href="javascript:void(0)" onclick="openDetail('solidworks')" class="btn-readmore">READ MORE</a>
+        </div>
+
+        <!-- 3. PRIMAVERA -->
+        <div class="class-card">
+            <div class="logo-container">
+                <div class="logo-placeholder" style="color: #2980b9; font-style: italic;">ORACLE</div>
+            </div>
+            <h3 class="class-title">PRIMAVERA Class</h3>
+            <p class="class-desc">Primavera adalah alat untuk menyusun manajemen proyek, program, dan portofolio berskala besar yang digunakan untuk melacak lini masa...</p>
+            <a href="javascript:void(0)" onclick="openDetail('primavera')" class="btn-readmore">READ MORE</a>
+        </div>
+
+        <!-- 4. PDMS -->
+        <div class="class-card">
+            <div class="logo-container">
+                <div class="logo-placeholder" style="color: #27ae60;">AVEVA <span style="font-size:12px; background:#000; color:#fff; padding:2px 4px;">PDMS</span></div>
+            </div>
+            <h3 class="class-title">Plant Design Management System (PDMS) Class</h3>
+            <p class="class-desc">PDMS adalah singkatan dari Plant Design Management System yang merupakan sebuah program pemodelan 3D pipa komprehensif...</p>
+            <a href="javascript:void(0)" onclick="openDetail('pdms')" class="btn-readmore">READ MORE</a>
+        </div>
+
+        <!-- 5. TEKLA -->
+        <div class="class-card">
+            <div class="logo-container">
+                <div class="logo-placeholder" style="color: #d35400;">Tekla <span style="font-size:14px; display:block; font-weight:normal; color:#2980b9;">Structures</span></div>
+            </div>
+            <h3 class="class-title">TEKLA STRUCTURE MODELLING Class</h3>
+            <p class="class-desc">Tekla Structures merupakan sebuah software yang memungkinkan kita membuat suatu desain atau model struktur bangunan secara detail 3D...</p>
+            <a href="javascript:void(0)" onclick="openDetail('tekla')" class="btn-readmore">READ MORE</a>
+        </div>
+
+        <!-- 6. AUTOCAD -->
+        <div class="class-card">
+            <div class="logo-container">
+                <div class="logo-placeholder" style="color: #c0392b; font-style: italic;">AUTOCAD</div>
+            </div>
+            <h3 class="class-title">Autocad 2D, 3D And Drafting Class</h3>
+            <p class="class-desc">Autocad adalah software gambar teknik yang hampir wajib dikuasai oleh pekerja di dunia teknik karena fleksibilitasnya di semua pengerjaan...</p>
+            <a href="javascript:void(0)" onclick="openDetail('autocad')" class="btn-readmore">READ MORE</a>
+        </div>
+
+    </div> <!-- TUTUP MAIN CONTENT HALAMAN UTAMA -->
+        <!-- ======================================================= -->
+    <!-- HALAMAN POP-UP MULTI-MENU (TERPISAH & TERKUNCI)        -->
+    <!-- ======================================================= -->
+
+    <!-- HALAMAN ABOUT US -->
+    <div class="custom-page" id="pageAbout">
+        <h2 class="page-title">About Us</h2>
+        <div class="page-body">
+            <p><strong>ECI TRAINING CENTER</strong> adalah lembaga pelatihan kerja profesional yang berfokus pada pengembangan keahlian teknik (Engineering) dan software industri modern.</p>
+            <p>Kami berkomitmen memberikan solusi cerdas bagi para lulusan baru maupun profesional untuk meningkatkan kompetensi kerja agar siap bersaing di dunia industri global.</p>
+        </div>
+    </div>
+
+    <!-- HALAMAN GALLERY -->
+    <div class="custom-page" id="pageGallery">
+        <h2 class="page-title">Gallery</h2>
+        <div class="page-body">
+            <p>Dokumentasi ruang kelas, fasilitas, dan kegiatan pelatihan alumni ECI Training Center:</p>
+            <div class="gallery-grid">
+                
+                <div class="gallery-item-box">
+                    <img src="alumni1.jpg" alt="Alumni ECI" onclick="perbesarGambar(this.src)">
+                    <div class="caption-text">Alumni Training 1</div>
+                </div>
+                
+                <div class="gallery-item-box">
+                    <img src="alumni2.jpg" alt="Alumni ECI" onclick="perbesarGambar(this.src)">
+                    <div class="caption-text">Peserta Pelatihan 2</div>
+                </div>
+                
+                <div class="gallery-item-box">
+                    <img src="alumni3.jpg" alt="Alumni ECI" onclick="perbesarGambar(this.src)">
+                    <div class="caption-text">Ruang Kelas Praktek</div>
+                </div>
+                
+                <div class="gallery-item-box">
+                    <img src="alumni4.jpg" alt="Alumni ECI" onclick="perbesarGambar(this.src)">
+                    <div class="caption-text">Sesi Sertifikasi</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- HALAMAN CONTACT US -->
+    <div class="custom-page" id="pageContact">
+        <h2 class="page-title">Contact Us</h2>
+        <div class="page-body">
+            <div class="contact-card">
+                <div class="contact-label">📍 ALAMAT KANTOR</div>
+                <div class="contact-value">
+                    Jl. Central Raya, Ruko Central Business Sukajadi, Blok.A No.12B, Sukajadi, Batam Kota, Batam City, Riau Islands 29444
+                </div>
+            </div>
+            
+            <div class="contact-card" style="border-left-color: #2ecc71;">
+                <div class="contact-label">📞 WHATSAPP ADMIN</div>
+                <div class="contact-value">
+                    <p style="margin: 0; color: #555;">Klik di bawah untuk chat langsung:</p>
+                    <a href="https://wa.me/628117752226" 
+                       target="_blank" 
+                       class="btn-action-contact" 
+                       style="background-color: #2ecc71;">
+                       💬 CHAT VIA WHATSAPP
+                    </a>
+                </div>
+            </div>
+            
+            <div class="contact-card" style="border-left-color: #e67e22;">
+                <div class="contact-label">✉️ EMAIL RESMI</div>
+                <div class="contact-value">
+                    <p style="margin: 0; color: #555;">Klik di bawah untuk kirim email:</p>
+                    <a href="mailto:info@eci.co.id?subject=Tanya%20Informasi%20Training%20ECI" 
+                       class="btn-action-contact" 
+                       style="background-color: #e67e22;">
+                       ✉️ KIRIM EMAIL KAMI
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+     <!-- HALAMAN DETAIL KURSUS (BERSIH TANPA TOMBOL KOTAK HITAM) -->
+    <div class="detail-page" id="detailPage">
+        <!-- Judul yang berfungsi sebagai tombol kembali jika diklik -->
+        <h2 class="detail-title" id="courseTitle" onclick="closeDetail()" style="cursor: pointer;">Judul Kelas</h2>
+        <span onclick="closeDetail()" style="color: #5cb85c; font-size: 13px; font-weight: bold; cursor: pointer; display: inline-block; margin-bottom: 15px;">← Kembali ke Daftar Kelas</span>
+        <div class="detail-text" id="courseContent">Penjelasan...</div>
+        
+        <table class="info-table">
+            <tr><td>Harga</td><td id="tHarga">-</td></tr>
+            <tr><td>Durasi</td><td id="tDurasi">-</td></tr>
+            <tr><td>Harga Termasuk</td><td id="tTermasuk">-</td></tr>
+            <tr><td>Fasilitas</td><td id="tFasilitas">-</td></tr>
+            <tr><td>Persyaratan</td><td id="tPersyaratan">-</td></tr>
+        </table>
+    </div>
+
+  <!-- ======================================================= -->
+    <!-- BACKGROUND BAWAH (FOOTER GELAP) & COPYRIGHT            -->
+    <!-- ======================================================= -->
+    <footer class="site-footer">
+        <div class="footer-section">
+            <div class="footer-title">TRAINING</div>
+            <ul class="footer-links">
+                <li><a href="#ndt">NDT ASNT Level 2</a></li>
+                <li><a href="#engineering">Engineering</a></li>
+                <li><a href="#rope">Rope Access</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <div class="footer-title">GALLERY</div>
+            <ul class="footer-links">
+                <li><a href="#training-room">Training Room</a></li>
+                <li><a href="#practice-room">Practice Room</a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <div class="footer-copyright">
+        © 2026 ECITraining
+    </div>
+
+    <!-- KOTAK LIGHTBOX UNTUK PERBESAR GAMBAR -->
+    <div id="lightbox" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:20000; justify-content:center; align-items:center;" onclick="this.style.display='none'">
+        <img id="lightboxImg" src="" style="max-width:90%; max-height:80%; border-radius:4px;">
+    </div>
+    
+    <!-- ======================================================= -->
+    <!-- LOGIKA JAVASCRIPT KONTROL SEMUA MENU                    -->
+    <!-- ======================================================= -->
+    <script>
+        var menuBtn = document.getElementById('menuBtn');
+        var sideMenu = document.getElementById('sideMenu');
+        var overlayBtn = document.getElementById('overlayBtn');
+
+        function toggleMenu() {
+            sideMenu.classList.toggle('active');
+            overlayBtn.classList.toggle('active');
+        }
+
+        menuBtn.addEventListener('click', toggleMenu);
+        overlayBtn.addEventListener('click', toggleMenu);
+
+        // FUNGSI NAVIGASI HALAMAN UTAMA
+        function navigateTo(pageId) {
+            sideMenu.classList.remove('active');
+            overlayBtn.classList.remove('active');
+            
+            var pages = document.querySelectorAll('.custom-page, .detail-page');
+            pages.forEach(function(p) {
+                p.style.display = 'none';
+            });
+            
+            if (pageId === 'home') {
+                window.scrollTo(0, 0);
+                return;
+            }
+            
+            var targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                targetPage.style.display = 'block';
+                targetPage.scrollTop = 0;
+            }
+        }
+
+        // DATA KURSUS
+        var courseData = {
+            sketchup: {
+                title: "SKETCHUP MODELLING Class",
+                text: "SketchUp adalah perangkat lunak pemodelan 3D yang mudah digunakan dan memiliki basis data ekstensif model buatan pengguna untuk kebutuhan arsitektur dan interior.",
+                harga: "Hubungi Kami", durasi: "32 Jam", termasuk: "Sertifikat, Handbook", fasilitas: "Ruang Kelas Full AC", persyaratan: "Minimal Lulusan SMA"
+            },
+            solidworks: {
+                title: "SOLIDWORKS Class",
+                text: "SOLIDWORKS adalah CAD software untuk merancang produk mekanikal, permesinan, dan pemodelan komponen 3D secara presisi dengan metode parametrik.",
+                harga: "Hubungi Kami", durasi: "40 Jam", termasuk: "Sertifikat, Modul", fasilitas: "Laboratorium Komputer", persyaratan: "Minimal Lulusan SMK/SMA"
+            },
+            primavera: {
+                title: "PRIMAVERA Class",
+                text: "Primavera adalah alat manajemen proyek skala besar yang digunakan untuk melacak lini masa, kebutuhan material, serta anggaran biaya proyek industri.",
+                harga: "Hubungi Kami", durasi: "32 Jam", termasuk: "Sertifikat Resmi", fasilitas: "Coffee Break, Ruang Kelas", persyaratan: "Mahasiswa / Pekerja Sipil"
+            },
+            pdms: {
+                title: "Plant Design Management System (PDMS) Class",
+                text: "PDMS merupakan sebuah program pemodelan 3D pipa dan kilang minyak komprehensif untuk dunia industri oil & gas.",
+                harga: "Hubungi Kami", durasi: "45 Jam", termasuk: "Sertifikat, Piping Data Book", fasilitas: "PC High Spec", persyaratan: "D3 / S1 Teknik"
+            },
+            tekla: {
+                title: "TEKLA STRUCTURE MODELLING Class",
+                text: "Tekla Structures merupakan software konstruksi berbasis BIM untuk membuat desain model struktur bangunan baja atau beton detail 3D.",
+                harga: "Hubungi Kami", durasi: "36 Jam", termasuk: "Sertifikat Kompetensi", fasilitas: "Ruang Kelas Modern", persyaratan: "Mengerti Gambar Teknik"
+            },
+            autocad: {
+                title: "Autocad 2D, 3D And Drafting Class",
+                text: "Autocad adalah software gambar teknik dasar yang wajib dikuasai oleh pekerja teknik karena fleksibilitasnya di seluruh pengerjaan proyek.",
+                                harga: "Hubungi Kami", durasi: "30 Jam", termasuk: "Sertifikat, Kumpulan Library", fasilitas: "Bimbingan Intensif", persyaratan: "Semua Kalangan"
+            }
+        };
+
+        function openDetail(courseKey) {
+            var customPages = document.querySelectorAll('.custom-page');
+            customPages.forEach(function(p) { p.style.display = 'none'; });
+
+            var data = courseData[courseKey];
+            if(data) {
+                document.getElementById('courseTitle').innerText = data.title;
+                document.getElementById('courseContent').innerText = data.text;
+                document.getElementById('tHarga').innerText = data.harga;
+                document.getElementById('tDurasi').innerText = data.durasi;
+                document.getElementById('tTermasuk').innerText = data.termasuk;
+                document.getElementById('tFasilitas').innerText = data.fasilitas;
+                document.getElementById('tPersyaratan').innerText = data.persyaratan;
+                document.getElementById('detailPage').style.display = 'block';
+                document.getElementById('detailPage').scrollTop = 0; 
+            }
+        }
+
+        function closeDetail() {
+            document.getElementById('detailPage').style.display = 'none';
+        }
+
+        function perbesarGambar(sumberGambar) {
+            document.getElementById('lightboxImg').src = sumberGambar;
+            document.getElementById('lightbox').style.display = 'flex';
+        }
+
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js')
+                .then(function() { console.log("PWA Aktif!"); })
+                .catch(function(err) { console.log("Gagal:", err); });
+        }
+    </script>
+</body>
+</html>
