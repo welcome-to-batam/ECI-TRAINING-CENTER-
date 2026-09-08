@@ -3,8 +3,10 @@
   "short_name": "ECI",
   "start_url": "index.html",
   "display": "standalone",
+  "orientation": "portrait",  // <-- TAMBAHKAN INI
   "background_color": "#1a252f",
   "theme_color": "#007bff",
+  "prefer_related_applications": false, // <-- TAMBAHKAN INI, opsional tapi bagus
   "icons": [
     {
       "src": "icon-192.png",
@@ -18,4 +20,3 @@
     }
   ]
 }
-
