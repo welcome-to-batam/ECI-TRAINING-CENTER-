@@ -638,31 +638,30 @@
 
     <div class="custom-page" id="pageTraining" style="padding: 70px 0 0 15px;">
         <div class="training-layout">
-            
-            <!-- KONTEN TOMBOL KAPSUL (KIRI) -->
+
+            <!-- KONTEN TOMBOL KAPSUL (KIRI) - SEMUA AKTIF DIKLIK -->
             <div class="training-menu-left">
                 
                 <!-- 1. KATEGORI NDT -->
                 <div class="category-title">NDT ASNT LVL 2</div>
-                <a href="javascript:void(0)" class="capsule-btn bg-green">Magnetic Particle Testing (MPT)</a>
-                <a href="javascript:void(0)" class="capsule-btn bg-green">Ultrasonic Testing (UT)</a>
-                <a href="javascript:void(0)" class="capsule-btn bg-green">Radiography Testing Film Interpretation (RTFI)</a>
-                <a href="javascript:void(0)" class="capsule-btn bg-green">Eddy Current Testing (ECT)</a>
-                <a href="javascript:void(0)" class="capsule-btn bg-green">Phassed Array Ultrasonic Testing (PAUT)</a>
+                <a href="javascript:void(0)" onclick="openDetail('mpt')" class="capsule-btn bg-green">Magnetic Particle Testing (MPT)</a>
+                <a href="javascript:void(0)" onclick="openDetail('ut')" class="capsule-btn bg-green">Ultrasonic Testing (UT)</a>
+                <a href="javascript:void(0)" onclick="openDetail('rtfi')" class="capsule-btn bg-green">Radiography Testing Film Interpretation (RTFI)</a>
+                <a href="javascript:void(0)" onclick="openDetail('ect')" class="capsule-btn bg-green">Eddy Current Testing (ECT)</a>
+                <a href="javascript:void(0)" onclick="openDetail('paut')" class="capsule-btn bg-green">Phassed Array Ultrasonic Testing (PAUT)</a>
 
                 <!-- 2. KATEGORI ENGINEERING -->
                 <div class="category-title">Engineering</div>
-                <a href="javascript:void(0)" class="capsule-btn bg-orange">Autocad 2D, 3D, And Drafting</a>
-                <a href="javascript:void(0)" class="capsule-btn bg-orange">TEKLA Structural Design</a>
+                <a href="javascript:void(0)" onclick="openDetail('autocad')" class="capsule-btn bg-orange">Autocad 2D, 3D, And Drafting</a>
+                <a href="javascript:void(0)" onclick="openDetail('tekla')" class="capsule-btn bg-orange">TEKLA Structural Design</a>
                 
-                <!-- Tombol Berdampingan -->
                 <div class="engineering-grid">
                     <a href="javascript:void(0)" onclick="openDetail('pdms')" class="capsule-btn bg-orange">PDMS</a>
                     <a href="javascript:void(0)" onclick="openDetail('solidworks')" class="capsule-btn bg-orange">SOLIDWORKS</a>
                 </div>
                 <div class="engineering-grid">
-                    <a href="javascript:void(0)" class="capsule-btn bg-orange">STAAD PRO</a>
-                    <a href="javascript:void(0)" class="capsule-btn bg-orange">SACS</a>
+                    <a href="javascript:void(0)" onclick="openDetail('staadpro')" class="capsule-btn bg-orange">STAAD PRO</a>
+                    <a href="javascript:void(0)" onclick="openDetail('sacs')" class="capsule-btn bg-orange">SACS</a>
                 </div>
                 <div class="engineering-grid">
                     <a href="javascript:void(0)" onclick="openDetail('sketchup')" class="capsule-btn bg-orange">SKETCHUP</a>
@@ -672,13 +671,13 @@
                 <!-- 3. KATEGORI ROPE ACCESS -->
                 <div class="category-title">Rope Access</div>
                 <div class="engineering-grid" style="margin-bottom: 30px;">
-                    <a href="javascript:void(0)" class="capsule-btn bg-blue">LEVEL 1</a>
-                    <a href="javascript:void(0)" class="capsule-btn bg-blue">LEVEL 2</a>
-                    <a href="javascript:void(0)" class="capsule-btn bg-blue">LEVEL 3</a>
+                    <a href="javascript:void(0)" onclick="openDetail('rope1')" class="capsule-btn bg-blue">LEVEL 1</a>
+                    <a href="javascript:void(0)" onclick="openDetail('rope2')" class="capsule-btn bg-blue">LEVEL 2</a>
+                    <a href="javascript:void(0)" onclick="openDetail('rope3')" class="capsule-btn bg-blue">LEVEL 3</a>
                 </div>
-                
-            </div>
 
+            </div>
+            
             <!-- STRIP BANNER DEKORASI (KANAN) -->
             <div class="training-banner-right">
                 <!-- Anda bisa memasukkan file gambar potongan banner vertikal di sini nanti -->
@@ -773,17 +772,17 @@
                 targetPage.scrollTop = 0;
             }
         }
-
-        // DATA KURSUS
+        
+        // DATA KURSUS LENGKAP 16 KELAS UNTUK TRAINING DAN HOME
         var courseData = {
             sketchup: {
                 title: "SKETCHUP MODELLING Class",
-                text: "SketchUp adalah perangkat lunak pemodelan 3D yang mudah digunakan dan memiliki basis data ekstensif model buatan pengguna untuk kebutuhan arsitektur dan interior.",
+                text: "SketchUp adalah perangkat lukis pemodelan 3D yang sangat populer digunakan oleh arsitek dan desainer interior untuk mendesain ruang dan bangunan.",
                 harga: "Hubungi Kami", durasi: "32 Jam", termasuk: "Sertifikat, Handbook", fasilitas: "Ruang Kelas Full AC", persyaratan: "Minimal Lulusan SMA"
             },
             solidworks: {
                 title: "SOLIDWORKS Class",
-                text: "SOLIDWORKS adalah CAD software untuk merancang produk mekanikal, permesinan, dan pemodelan komponen 3D secara presisi dengan metode parametrik.",
+                text: "SOLIDWORKS adalah CAD software untuk merancang produk mekanikal, komponen permesinan, dan manufaktur secara presisi 3D.",
                 harga: "Hubungi Kami", durasi: "40 Jam", termasuk: "Sertifikat, Modul", fasilitas: "Laboratorium Komputer", persyaratan: "Minimal Lulusan SMK/SMA"
             },
             primavera: {
@@ -804,10 +803,60 @@
             autocad: {
                 title: "Autocad 2D, 3D And Drafting Class",
                 text: "Autocad adalah software gambar teknik dasar yang wajib dikuasai oleh pekerja teknik karena fleksibilitasnya di seluruh pengerjaan proyek.",
-                                harga: "Hubungi Kami", durasi: "30 Jam", termasuk: "Sertifikat, Kumpulan Library", fasilitas: "Bimbingan Intensif", persyaratan: "Semua Kalangan"
+                harga: "Hubungi Kami", durasi: "30 Jam", termasuk: "Sertifikat, Kumpulan Library", fasilitas: "Bimbingan Intensif", persyaratan: "Semua Kalangan"
+            },
+            mpt: {
+                title: "Magnetic Particle Testing (MPT) Class",
+                text: "Pelatihan MPT berfokus pada metode pengujian non-destruktif untuk mendeteksi cacat permukaan pada material feromagnetik.",
+                harga: "Hubungi Kami", durasi: "24 Jam", termasuk: "Sertifikat, Modul", fasilitas: "Alat Praktek MPT", persyaratan: "Minimal Lulusan SMA/SMK"
+            },
+            ut: {
+                title: "Ultrasonic Testing (UT) Class",
+                text: "Pelatihan UT menggunakan gelombang suara frekuensi tinggi untuk mendeteksi cacat internal pada logam atau mengukur ketebalan material.",
+                harga: "Hubungi Kami", durasi: "32 Jam", termasuk: "Sertifikat, Handbook", fasilitas: "Alat Uji Ultrasonic", persyaratan: "Minimal Lulusan SMA/SMK"
+            },
+            rtfi: {
+                title: "Radiography Testing Film Interpretation (RTFI) Class",
+                text: "Kelas khusus untuk membaca dan menginterpretasikan hasil film radiografi (Sinar-X) guna menentukan kelayakan sambungan las industri.",
+                harga: "Hubungi Kami", durasi: "30 Jam", termasuk: "Sertifikat NDT", fasilitas: "Viewer Film Radiografi", persyaratan: "Minimal Lulusan SMA/SMK"
+            },
+            ect: {
+                title: "Eddy Current Testing (ECT) Class",
+                text: "Pengujian menggunakan prinsip elektromagnetik untuk mendeteksi cacat permukaan pada material konduktif seperti tabung penukar panas.",
+                harga: "Hubungi Kami", durasi: "40 Jam", termasuk: "Sertifikat Kompetensi", fasilitas: "Alat ECT Modern", persyaratan: "Minimal Lulusan SMA/SMK"
+            },
+            paut: {
+                title: "Phased Array Ultrasonic Testing (PAUT) Class",
+                text: "Teknologi pengujian ultrasonik tingkat lanjut yang menggunakan multi-element probe untuk visualisasi cacat sambungan pipa secara real-time.",
+                harga: "Hubungi Kami", durasi: "45 Jam", termasuk: "Sertifikat Khusus", fasilitas: "PC & Alat PAUT", persyaratan: "Memiliki Dasar UT Level 2"
+            },
+            staadpro: {
+                title: "STAAD PRO Class",
+                text: "Software analisis dan desain struktur bangunan yang digunakan oleh engineer sipil untuk menghitung kekuatan terhadap beban konstruksi.",
+                harga: "Hubungi Kami", durasi: "24 Jam", termasuk: "Sertifikat", fasilitas: "Lab Komputer AC", persyaratan: "Mahasiswa / Pekerja Sipil"
+            },
+            sacs: {
+                title: "SACS Class",
+                text: "Software analisis struktur khusus untuk bangunan lepas pantai (offshore structures) seperti platform minyak, gas, dan jaket rig.",
+                harga: "Hubungi Kami", durasi: "30 Jam", termasuk: "Sertifikat Keahlian", fasilitas: "Modul Khusus Offshore", persyaratan: "Lulusan S1 Teknik Sipil/Kelautan"
+            },
+            rope1: {
+                title: "Rope Access LEVEL 1 Class",
+                text: "Pelatihan dasar teknik akses tali untuk bekerja di ketinggian secara aman, mencakup pengenalan alat, simpul, dan teknik rescue dasar.",
+                harga: "Hubungi Kami", durasi: "40 Jam", termasuk: "Sertifikat Internasional", fasilitas: "Alat Safety & Tower Praktek", persyaratan: "Kondisi Fisik Fit & Sehat"
+            },
+            rope2: {
+                title: "Rope Access LEVEL 2 Class",
+                text: "Tingkat lanjutan yang berfokus pada teknik penyelamatan (rescue) korban di tali serta rigging sistem pengikatan tali yang kompleks.",
+                harga: "Hubungi Kami", durasi: "40 Jam", termasuk: "Sertifikat Level 2", fasilitas: "Tower Pelatihan Tinggi", persyaratan: "Memiliki Logbook Lvl 1"
+            },
+            rope3: {
+                title: "Rope Access LEVEL 3 Class",
+                text: "Tingkat tertinggi (Supervisor) yang bertanggung jawab penuh atas keselamatan tim kerja di ketinggian, izin kerja, dan rencana penyelamatan darurat.",
+                harga: "Hubungi Kami", durasi: "45 Jam", termasuk: "Sertifikat Supervisor", fasilitas: "Fasilitas Ujian Lengkap", persyaratan: "Jam Terbang Tinggi di Lvl 2"
             }
         };
-
+        
         function openDetail(courseKey) {
             var customPages = document.querySelectorAll('.custom-page');
             customPages.forEach(function(p) { p.style.display = 'none'; });
