@@ -2,8 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <!-- Mengunci skala layar agar tidak bisa di-zoom out/diperkecil oleh mode desktop Chrome -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ECI TRAINING CENTER</title>
     
     <!-- Menghubungkan konfigurasi aplikasi PWA -->
@@ -370,6 +369,35 @@
         grid-template-columns: 1fr 1fr !important;
     }
 }
+
+        @media (display-mode: standalone) {
+    html {
+        /* Ini yg nahan layout biar gak melebar pas di zoom out */
+        overflow-x: hidden; 
+    }
+    body {
+        max-width: 500px !important;
+        margin: 0 auto !important;
+    }
+        }
+
+        /* Overlay zoom gambar */
+.img-zoom-overlay {
+    display: none;
+    position: fixed;
+    z-index: 20001;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.9);
+    justify-content: center;
+    align-items: center;
+}
+.img-zoom-overlay img {
+    max-width: 90%;
+    max-height: 90%;
+}
     </style>
 </head>
 <body>
@@ -591,6 +619,10 @@
     <div id="lightbox" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:20000; justify-content:center; align-items:center;" onclick="this.style.display='none'">
         <img id="lightboxImg" src="" style="max-width:90%; max-height:80%; border-radius:4px;">
     </div>
+    
+    <div id="imgZoom" class="img-zoom-overlay" onclick="this.style.display='none'">
+    <img id="imgZoomSrc">
+    </div>
 
     <!-- ======================================================= -->
     <!-- LOGIKA JAVASCRIPT KONTROL SEMUA MENU                    -->
@@ -696,6 +728,14 @@
                 .then(function() { console.log("PWA Aktif!"); })
                 .catch(function(err) { console.log("Gagal:", err); });
         }
+
+        // Bikin semua gambar di gallery bisa di klik untuk zoom
+document.querySelectorAll('.gallery-item-box img').forEach(img => {
+    img.onclick = function() {
+        document.getElementById('imgZoom').style.display = 'flex';
+        document.getElementById('imgZoomSrc').src = this.src;
+    }
+});
     </script>
 </body>
 </html>
