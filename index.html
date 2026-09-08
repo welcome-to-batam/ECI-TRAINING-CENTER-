@@ -357,7 +357,7 @@
     <!-- SLIDE MENU -->
     <div class="side-menu" id="sideMenu">
         <a href="javascript:void(0)" class="menu-item" onclick="navigateTo('home')">HOME</a>
-        <a href="javascript:void(0)" class="menu-item" onclick="navigateTo('home')">TRAINING</a>
+        <a href="javascript:void(0)" class="menu-item" onclick="navigateTo('pageTraining')">TRAINING</a>
         <a href="javascript:void(0)" class="menu-item" onclick="navigateTo('pageAbout')">ABOUT US</a>
         <a href="javascript:void(0)" class="menu-item" onclick="navigateTo('pageGallery')">GALLERY</a>
         <a href="javascript:void(0)" class="menu-item" onclick="navigateTo('home')">CERTIFICATE VERIFICATION</a>
@@ -429,7 +429,89 @@
             <a href="javascript:void(0)" onclick="openDetail('autocad')" class="btn-readmore">READ MORE</a>
         </div>
 
-            <!-- ======================================================= -->
+    </div> <!-- TUTUP MAIN CONTENT HALAMAN UTAMA -->
+        <!-- ======================================================= -->
+    <!-- HALAMAN POP-UP MULTI-MENU (TERPISAH & TERKUNCI)        -->
+    <!-- ======================================================= -->
+
+    <!-- HALAMAN ABOUT US -->
+    <div class="custom-page" id="pageAbout">
+        <h2 class="page-title">About Us</h2>
+        <div class="page-body">
+            <p><strong>ECI TRAINING CENTER</strong> adalah lembaga pelatihan kerja profesional yang berfokus pada pengembangan keahlian teknik (Engineering) dan software industri modern.</p>
+            <p>Kami berkomitmen memberikan solusi cerdas bagi para lulusan baru maupun profesional untuk meningkatkan kompetensi kerja agar siap bersaing di dunia industri global.</p>
+        </div>
+    </div>
+
+    <!-- HALAMAN GALLERY -->
+    <div class="custom-page" id="pageGallery">
+        <h2 class="page-title">Gallery</h2>
+        <div class="page-body">
+            <p>Dokumentasi ruang kelas, fasilitas, dan kegiatan pelatihan alumni ECI Training Center:</p>
+            <div class="gallery-grid">
+                
+                <div class="gallery-item-box">
+                    <img src="alumni1.jpg" alt="Alumni ECI" onclick="perbesarGambar(this.src)">
+                    <div class="caption-text">Alumni Training 1</div>
+                </div>
+                
+                <div class="gallery-item-box">
+                    <img src="alumni2.jpg" alt="Alumni ECI" onclick="perbesarGambar(this.src)">
+                    <div class="caption-text">Peserta Pelatihan 2</div>
+                </div>
+                
+                <div class="gallery-item-box">
+                    <img src="alumni3.jpg" alt="Alumni ECI" onclick="perbesarGambar(this.src)">
+                    <div class="caption-text">Ruang Kelas Praktek</div>
+                </div>
+                
+                <div class="gallery-item-box">
+                    <img src="alumni4.jpg" alt="Alumni ECI" onclick="perbesarGambar(this.src)">
+                    <div class="caption-text">Sesi Sertifikasi</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- HALAMAN CONTACT US -->
+    <div class="custom-page" id="pageContact">
+        <h2 class="page-title">Contact Us</h2>
+        <div class="page-body">
+            <div class="contact-card">
+                <div class="contact-label">📍 ALAMAT KANTOR</div>
+                <div class="contact-value">
+                    Jl. Central Raya, Ruko Central Business Sukajadi, Blok.A No.12B, Sukajadi, Batam Kota, Batam City, Riau Islands 29444
+                </div>
+            </div>
+            
+            <div class="contact-card" style="border-left-color: #2ecc71;">
+                <div class="contact-label">📞 WHATSAPP ADMIN</div>
+                <div class="contact-value">
+                    <p style="margin: 0; color: #555;">Klik di bawah untuk chat langsung:</p>
+                    <a href="https://wa.me/628117752226" 
+                       target="_blank" 
+                       class="btn-action-contact" 
+                       style="background-color: #2ecc71;">
+                       💬 CHAT VIA WHATSAPP
+                    </a>
+                </div>
+            </div>
+            
+            <div class="contact-card" style="border-left-color: #e67e22;">
+                <div class="contact-label">✉️ EMAIL RESMI</div>
+                <div class="contact-value">
+                    <p style="margin: 0; color: #555;">Klik di bawah untuk kirim email:</p>
+                    <a href="mailto:info@eci.co.id?subject=Tanya%20Informasi%20Training%20ECI" 
+                       class="btn-action-contact" 
+                       style="background-color: #e67e22;">
+                       ✉️ KIRIM EMAIL KAMI
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======================================================= -->
     <!-- HALAMAN TRAINING (LAYOUT KAPSUL & VERTICAL BANNER)      -->
     <!-- ======================================================= -->
     <style>
@@ -555,88 +637,7 @@
                 <!-- Sementara diisi gambar contoh atau dikosongkan dahulu -->
                 <img src="banner-alumni.jpg" class="banner-strip-item" style="height: 100%; object-fit: cover; opacity: 0.7;">
             </div>
-        </div>
-    </div>
 
-    </div> <!-- TUTUP MAIN CONTENT HALAMAN UTAMA -->
-        <!-- ======================================================= -->
-    <!-- HALAMAN POP-UP MULTI-MENU (TERPISAH & TERKUNCI)        -->
-    <!-- ======================================================= -->
-
-    <!-- HALAMAN ABOUT US -->
-    <div class="custom-page" id="pageAbout">
-        <h2 class="page-title">About Us</h2>
-        <div class="page-body">
-            <p><strong>ECI TRAINING CENTER</strong> adalah lembaga pelatihan kerja profesional yang berfokus pada pengembangan keahlian teknik (Engineering) dan software industri modern.</p>
-            <p>Kami berkomitmen memberikan solusi cerdas bagi para lulusan baru maupun profesional untuk meningkatkan kompetensi kerja agar siap bersaing di dunia industri global.</p>
-        </div>
-    </div>
-
-    <!-- HALAMAN GALLERY -->
-    <div class="custom-page" id="pageGallery">
-        <h2 class="page-title">Gallery</h2>
-        <div class="page-body">
-            <p>Dokumentasi ruang kelas, fasilitas, dan kegiatan pelatihan alumni ECI Training Center:</p>
-            <div class="gallery-grid">
-                
-                <div class="gallery-item-box">
-                    <img src="alumni1.jpg" alt="Alumni ECI" onclick="perbesarGambar(this.src)">
-                    <div class="caption-text">Alumni Training 1</div>
-                </div>
-                
-                <div class="gallery-item-box">
-                    <img src="alumni2.jpg" alt="Alumni ECI" onclick="perbesarGambar(this.src)">
-                    <div class="caption-text">Peserta Pelatihan 2</div>
-                </div>
-                
-                <div class="gallery-item-box">
-                    <img src="alumni3.jpg" alt="Alumni ECI" onclick="perbesarGambar(this.src)">
-                    <div class="caption-text">Ruang Kelas Praktek</div>
-                </div>
-                
-                <div class="gallery-item-box">
-                    <img src="alumni4.jpg" alt="Alumni ECI" onclick="perbesarGambar(this.src)">
-                    <div class="caption-text">Sesi Sertifikasi</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- HALAMAN CONTACT US -->
-    <div class="custom-page" id="pageContact">
-        <h2 class="page-title">Contact Us</h2>
-        <div class="page-body">
-            <div class="contact-card">
-                <div class="contact-label">📍 ALAMAT KANTOR</div>
-                <div class="contact-value">
-                    Jl. Central Raya, Ruko Central Business Sukajadi, Blok.A No.12B, Sukajadi, Batam Kota, Batam City, Riau Islands 29444
-                </div>
-            </div>
-            
-            <div class="contact-card" style="border-left-color: #2ecc71;">
-                <div class="contact-label">📞 WHATSAPP ADMIN</div>
-                <div class="contact-value">
-                    <p style="margin: 0; color: #555;">Klik di bawah untuk chat langsung:</p>
-                    <a href="https://wa.me/628117752226" 
-                       target="_blank" 
-                       class="btn-action-contact" 
-                       style="background-color: #2ecc71;">
-                       💬 CHAT VIA WHATSAPP
-                    </a>
-                </div>
-            </div>
-            
-            <div class="contact-card" style="border-left-color: #e67e22;">
-                <div class="contact-label">✉️ EMAIL RESMI</div>
-                <div class="contact-value">
-                    <p style="margin: 0; color: #555;">Klik di bawah untuk kirim email:</p>
-                    <a href="mailto:info@eci.co.id?subject=Tanya%20Informasi%20Training%20ECI" 
-                       class="btn-action-contact" 
-                       style="background-color: #e67e22;">
-                       ✉️ KIRIM EMAIL KAMI
-                    </a>
-                </div>
-            </div>
         </div>
     </div>
 
