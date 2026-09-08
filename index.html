@@ -429,6 +429,135 @@
             <a href="javascript:void(0)" onclick="openDetail('autocad')" class="btn-readmore">READ MORE</a>
         </div>
 
+            <!-- ======================================================= -->
+    <!-- HALAMAN TRAINING (LAYOUT KAPSUL & VERTICAL BANNER)      -->
+    <!-- ======================================================= -->
+    <style>
+        /* Kontainer Utama Layout Halaman Training */
+        .training-layout {
+            display: flex;
+            justify-content: space-between;
+            align-items: stretch;
+            min-height: 100%;
+        }
+        /* Sisi Kiri: Daftar Menu Kapsul */
+        .training-menu-left {
+            flex: 1;
+            padding-right: 15px;
+            text-align: center;
+        }
+        /* Sisi Kanan: Banner Strip Vertikal */
+        .training-banner-right {
+            width: 70px;
+            background-color: #0b3c5d;
+            border-left: 2px solid #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+        .banner-strip-item {
+            width: 100%;
+            display: block;
+        }
+
+        /* Judul Kelompok Kategori */
+        .category-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #7f8c8d;
+            margin: 25px 0 15px 0;
+            text-transform: capitalize;
+        }
+
+        /* Desain Umum Tombol Kapsul */
+        .capsule-btn {
+            display: block;
+            width: 100%;
+            padding: 12px 10px;
+            margin-bottom: 12px;
+            border-radius: 25px; /* Membuat bentuk kapsul bulat sempurna */
+            color: white;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            box-sizing: border-box;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.1s;
+        }
+        .capsule-btn:active {
+            transform: scale(0.97);
+        }
+
+        /* Pembagian Warna Kapsul Sesuai Gambar */
+        .bg-green { background-color: #76d7c4; } /* Warna NDT ASNT */
+        .bg-orange { background-color: #f39c12; } /* Warna Engineering */
+        .bg-blue { background-color: #5dade2; } /* Warna Rope Access */
+
+        /* Layout Grid Khusus untuk Tombol Engineering yang Berdampingan */
+        .engineering-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        .engineering-grid .capsule-btn {
+            margin-bottom: 0;
+        }
+    </style>
+
+    <div class="custom-page" id="pageTraining" style="padding: 70px 0 0 15px;">
+        <div class="training-layout">
+            
+            <!-- KONTEN TOMBOL KAPSUL (KIRI) -->
+            <div class="training-menu-left">
+                
+                <!-- 1. KATEGORI NDT -->
+                <div class="category-title">NDT ASNT LVL 2</div>
+                <a href="javascript:void(0)" class="capsule-btn bg-green">Magnetic Particle Testing (MPT)</a>
+                <a href="javascript:void(0)" class="capsule-btn bg-green">Ultrasonic Testing (UT)</a>
+                <a href="javascript:void(0)" class="capsule-btn bg-green">Radiography Testing Film Interpretation (RTFI)</a>
+                <a href="javascript:void(0)" class="capsule-btn bg-green">Eddy Current Testing (ECT)</a>
+                <a href="javascript:void(0)" class="capsule-btn bg-green">Phassed Array Ultrasonic Testing (PAUT)</a>
+
+                <!-- 2. KATEGORI ENGINEERING -->
+                <div class="category-title">Engineering</div>
+                <a href="javascript:void(0)" class="capsule-btn bg-orange">Autocad 2D, 3D, And Drafting</a>
+                <a href="javascript:void(0)" class="capsule-btn bg-orange">TEKLA Structural Design</a>
+                
+                <!-- Tombol Berdampingan -->
+                <div class="engineering-grid">
+                    <a href="javascript:void(0)" onclick="openDetail('pdms')" class="capsule-btn bg-orange">PDMS</a>
+                    <a href="javascript:void(0)" onclick="openDetail('solidworks')" class="capsule-btn bg-orange">SOLIDWORKS</a>
+                </div>
+                <div class="engineering-grid">
+                    <a href="javascript:void(0)" class="capsule-btn bg-orange">STAAD PRO</a>
+                    <a href="javascript:void(0)" class="capsule-btn bg-orange">SACS</a>
+                </div>
+                <div class="engineering-grid">
+                    <a href="javascript:void(0)" onclick="openDetail('sketchup')" class="capsule-btn bg-orange">SKETCHUP</a>
+                    <a href="javascript:void(0)" onclick="openDetail('primavera')" class="capsule-btn bg-orange">PRIMAVERA</a>
+                </div>
+
+                <!-- 3. KATEGORI ROPE ACCESS -->
+                <div class="category-title">Rope Access</div>
+                <div class="engineering-grid" style="margin-bottom: 30px;">
+                    <a href="javascript:void(0)" class="capsule-btn bg-blue">LEVEL 1</a>
+                    <a href="javascript:void(0)" class="capsule-btn bg-blue">LEVEL 2</a>
+                </div>
+
+            </div>
+
+            <!-- STRIP BANNER DEKORASI (KANAN) -->
+            <div class="training-banner-right">
+                <!-- Anda bisa memasukkan file gambar potongan banner vertikal di sini nanti -->
+                <!-- Sementara diisi gambar contoh atau dikosongkan dahulu -->
+                <img src="banner-alumni.jpg" class="banner-strip-item" style="height: 100%; object-fit: cover; opacity: 0.7;">
+            </div>
+        </div>
+    </div>
+
     </div> <!-- TUTUP MAIN CONTENT HALAMAN UTAMA -->
         <!-- ======================================================= -->
     <!-- HALAMAN POP-UP MULTI-MENU (TERPISAH & TERKUNCI)        -->
