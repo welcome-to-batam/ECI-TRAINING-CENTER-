@@ -883,11 +883,31 @@
     <div id="lightbox" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:20000; justify-content:center; align-items:center;" onclick="this.style.display='none'">
         <img id="lightboxImg" src="" style="max-width:90%; max-height:80%; border-radius:4px;">
     </div>
+
+    <!-- ======================================================= -->
+    <!-- LOGIKA JAVASCRIPT UTAH & PENGHUBUNG FIREBASE CLOUD      -->
+    <!-- ======================================================= -->
     
-    <!-- ======================================================= -->
-    <!-- LOGIKA JAVASCRIPT KONTROL SEMUA MENU                    -->
-    <!-- ======================================================= -->
+    <!-- 1. Muat Pustaka Modul Utama Firebase SDK Resmi via CDN -->
+    <script src="https://gstatic.com"></script>
+    <script src="https://gstatic.com"></script>
+
     <script>
+        // Kunci Rahasia Firebase Milik Anda
+        const firebaseConfig = {
+            apiKey: "AIzaSyDLJYbdBeFkPSrnEqZl1hDHiSQzCQVT5GQ",
+            authDomain: "eci-training-center.firebaseapp.com",
+            projectId: "eci-training-center",
+            storageBucket: "eci-training-center.firebasestorage.app",
+            messagingSenderId: "705612127520",
+            appId: "1:705612127520:web:8deb43f67ad0a263a9cb45"
+        };
+
+        // Inisialisasi Jalur Database Firebase Cloud
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        // Kontrol Tombol Menu Samping
         var menuBtn = document.getElementById('menuBtn');
         var sideMenu = document.getElementById('sideMenu');
         var overlayBtn = document.getElementById('overlayBtn');
@@ -900,7 +920,7 @@
         menuBtn.addEventListener('click', toggleMenu);
         overlayBtn.addEventListener('click', toggleMenu);
 
-        // FUNGSI NAVIGASI HALAMAN UTAMA
+        // Fungsi Perpindahan Halaman Menu
         function navigateTo(pageId) {
             sideMenu.classList.remove('active');
             overlayBtn.classList.remove('active');
@@ -920,92 +940,98 @@
                 targetPage.style.display = 'block';
                 targetPage.scrollTop = 0;
             }
-        }
-        
-        // DATA KURSUS LENGKAP 16 KELAS UNTUK TRAINING DAN HOME
-        var courseData = {
-            sketchup: {
-                title: "SKETCHUP MODELLING Class",
-                text: "SketchUp adalah perangkat lukis pemodelan 3D yang sangat populer digunakan oleh arsitek dan desainer interior untuk mendesain ruang dan bangunan.",
-                harga: "Hubungi Kami", durasi: "32 Jam", termasuk: "Sertifikat, Handbook", fasilitas: "Ruang Kelas Full AC", persyaratan: "Minimal Lulusan SMA"
-            },
-            solidworks: {
-                title: "SOLIDWORKS Class",
-                text: "SOLIDWORKS adalah CAD software untuk merancang produk mekanikal, komponen permesinan, dan manufaktur secara presisi 3D.",
-                harga: "Hubungi Kami", durasi: "40 Jam", termasuk: "Sertifikat, Modul", fasilitas: "Laboratorium Komputer", persyaratan: "Minimal Lulusan SMK/SMA"
-            },
-            primavera: {
-                title: "PRIMAVERA Class",
-                text: "Primavera adalah alat manajemen proyek skala besar yang digunakan untuk melacak lini masa, kebutuhan material, serta anggaran biaya proyek industri.",
-                harga: "Hubungi Kami", durasi: "32 Jam", termasuk: "Sertifikat Resmi", fasilitas: "Coffee Break, Ruang Kelas", persyaratan: "Mahasiswa / Pekerja Sipil"
-            },
-            pdms: {
-                title: "Plant Design Management System (PDMS) Class",
-                text: "PDMS merupakan sebuah program pemodelan 3D pipa dan kilang minyak komprehensif untuk dunia industri oil & gas.",
-                harga: "Hubungi Kami", durasi: "45 Jam", termasuk: "Sertifikat, Piping Data Book", fasilitas: "PC High Spec", persyaratan: "D3 / S1 Teknik"
-            },
-            tekla: {
-                title: "TEKLA STRUCTURE MODELLING Class",
-                text: "Tekla Structures merupakan software konstruksi berbasis BIM untuk membuat desain model struktur bangunan baja atau beton detail 3D.",
-                harga: "Hubungi Kami", durasi: "36 Jam", termasuk: "Sertifikat Kompetensi", fasilitas: "Ruang Kelas Modern", persyaratan: "Mengerti Gambar Teknik"
-            },
-            autocad: {
-                title: "Autocad 2D, 3D And Drafting Class",
-                text: "Autocad adalah software gambar teknik dasar yang wajib dikuasai oleh pekerja teknik karena fleksibilitasnya di seluruh pengerjaan proyek.",
-                harga: "Hubungi Kami", durasi: "30 Jam", termasuk: "Sertifikat, Kumpulan Library", fasilitas: "Bimbingan Intensif", persyaratan: "Semua Kalangan"
-            },
-            mpt: {
-                title: "Magnetic Particle Testing (MPT) Class",
-                text: "Pelatihan MPT berfokus pada metode pengujian non-destruktif untuk mendeteksi cacat permukaan pada material feromagnetik.",
-                harga: "Hubungi Kami", durasi: "24 Jam", termasuk: "Sertifikat, Modul", fasilitas: "Alat Praktek MPT", persyaratan: "Minimal Lulusan SMA/SMK"
-            },
-            ut: {
-                title: "Ultrasonic Testing (UT) Class",
-                text: "Pelatihan UT menggunakan gelombang suara frekuensi tinggi untuk mendeteksi cacat internal pada logam atau mengukur ketebalan material.",
-                harga: "Hubungi Kami", durasi: "32 Jam", termasuk: "Sertifikat, Handbook", fasilitas: "Alat Uji Ultrasonic", persyaratan: "Minimal Lulusan SMA/SMK"
-            },
-            rtfi: {
-                title: "Radiography Testing Film Interpretation (RTFI) Class",
-                text: "Kelas khusus untuk membaca dan menginterpretasikan hasil film radiografi (Sinar-X) guna menentukan kelayakan sambungan las industri.",
-                harga: "Hubungi Kami", durasi: "30 Jam", termasuk: "Sertifikat NDT", fasilitas: "Viewer Film Radiografi", persyaratan: "Minimal Lulusan SMA/SMK"
-            },
-            ect: {
-                title: "Eddy Current Testing (ECT) Class",
-                text: "Pengujian menggunakan prinsip elektromagnetik untuk mendeteksi cacat permukaan pada material konduktif seperti tabung penukar panas.",
-                harga: "Hubungi Kami", durasi: "40 Jam", termasuk: "Sertifikat Kompetensi", fasilitas: "Alat ECT Modern", persyaratan: "Minimal Lulusan SMA/SMK"
-            },
-            paut: {
-                title: "Phased Array Ultrasonic Testing (PAUT) Class",
-                text: "Teknologi pengujian ultrasonik tingkat lanjut yang menggunakan multi-element probe untuk visualisasi cacat sambungan pipa secara real-time.",
-                harga: "Hubungi Kami", durasi: "45 Jam", termasuk: "Sertifikat Khusus", fasilitas: "PC & Alat PAUT", persyaratan: "Memiliki Dasar UT Level 2"
-            },
-            staadpro: {
-                title: "STAAD PRO Class",
-                text: "Software analisis dan desain struktur bangunan yang digunakan oleh engineer sipil untuk menghitung kekuatan terhadap beban konstruksi.",
-                harga: "Hubungi Kami", durasi: "24 Jam", termasuk: "Sertifikat", fasilitas: "Lab Komputer AC", persyaratan: "Mahasiswa / Pekerja Sipil"
-            },
-            sacs: {
-                title: "SACS Class",
-                text: "Software analisis struktur khusus untuk bangunan lepas pantai (offshore structures) seperti platform minyak, gas, dan jaket rig.",
-                harga: "Hubungi Kami", durasi: "30 Jam", termasuk: "Sertifikat Keahlian", fasilitas: "Modul Khusus Offshore", persyaratan: "Lulusan S1 Teknik Sipil/Kelautan"
-            },
-            rope1: {
-                title: "Rope Access LEVEL 1 Class",
-                text: "Pelatihan dasar teknik akses tali untuk bekerja di ketinggian secara aman, mencakup pengenalan alat, simpul, dan teknik rescue dasar.",
-                harga: "Hubungi Kami", durasi: "40 Jam", termasuk: "Sertifikat Internasional", fasilitas: "Alat Safety & Tower Praktek", persyaratan: "Kondisi Fisik Fit & Sehat"
-            },
-            rope2: {
-                title: "Rope Access LEVEL 2 Class",
-                text: "Tingkat lanjutan yang berfokus pada teknik penyelamatan (rescue) korban di tali serta rigging sistem pengikatan tali yang kompleks.",
-                harga: "Hubungi Kami", durasi: "40 Jam", termasuk: "Sertifikat Level 2", fasilitas: "Tower Pelatihan Tinggi", persyaratan: "Memiliki Logbook Lvl 1"
-            },
-            rope3: {
-                title: "Rope Access LEVEL 3 Class",
-                text: "Tingkat tertinggi (Supervisor) yang bertanggung jawab penuh atas keselamatan tim kerja di ketinggian, izin kerja, dan rencana penyelamatan darurat.",
-                harga: "Hubungi Kami", durasi: "45 Jam", termasuk: "Sertifikat Supervisor", fasilitas: "Fasilitas Ujian Lengkap", persyaratan: "Jam Terbang Tinggi di Lvl 2"
+
+            // Pemicu Khusus: Jika Membuka Halaman Ulasan, Muat Data dari Firebase Cloud
+            if (pageId === 'pageReview') {
+                muatUlasanDariFirebase();
             }
-        };
+        }
+
+        // --- FITUR BARU: MANAJEMEN ULASAN REAL-TIME DENGAN FIREBASE CLOUD ---
         
+        // A. Fungsi Mengirim Ulasan Baru ke Cloud Database
+        function tambahUlasanBaru(event) {
+            event.preventDefault();
+
+            var namaInput = document.getElementById('revName').value;
+            var bintangInput = document.getElementById('revStars').value;
+            var komentarInput = document.getElementById('revComment').value;
+
+            // Menyimpan data permanen ke dalam tabel koleksi bernama 'ulasan_alumni'
+            db.collection("ulasan_alumni").add({
+                nama: namaInput,
+                bintang: bintangInput,
+                komentar: komentarInput,
+                waktu: firebase.firestore.FieldValue.serverTimestamp() // Mencatat waktu kirim otomatis
+            })
+            .then(function() {
+                alert("Terima kasih, ulasan Anda berhasil disimpan di Firebase Cloud!");
+                document.getElementById('revName').value = '';
+                document.getElementById('revComment').value = '';
+                muatUlasanDariFirebase(); // Perbarui daftar ulasan di layar
+            })
+            .catch(function(error) {
+                console.error("Gagal Menyimpan:", error);
+                alert("Gagal mengirim ulasan. Pastikan tab RULES di Firestore sudah di-set ke TRUE.");
+            });
+        }
+
+        // B. Fungsi Menarik Semua Ulasan dari Firebase untuk Ditampilkan di HP
+        function muatUlasanDariFirebase() {
+            var wadahUlasan = document.getElementById('reviewContainer');
+            
+            // Ambil data ulasan, urutkan berdasarkan waktu kirim terbaru
+            db.collection("ulasan_alumni").orderBy("waktu", "desc").get()
+            .then(function(querySnapshot) {
+                wadahUlasan.innerHTML = ""; // Bersihkan daftar lama agar tidak menumpuk ganda
+
+                if(querySnapshot.empty) {
+                    wadahUlasan.innerHTML = "<p style='color:#777; font-size:13px;'>Belum ada ulasan alumni. Jadilah yang pertama!</p>";
+                    return;
+                }
+
+                querySnapshot.forEach(function(doc) {
+                    var data = doc.data();
+                    
+                    var kotakUlasan = document.createElement('div');
+                    kotakUlasan.className = 'review-box-item';
+                    kotakUlasan.innerHTML = `
+                        <div class="review-item-header">
+                            <span class="reviewer-name">${data.nama}</span>
+                            <span class="reviewer-stars">${data.bintang}</span>
+                        </div>
+                        <div class="reviewer-comment">${data.komentar}</div>
+                    `;
+                    wadahUlasan.appendChild(kotakUlasan);
+                });
+            })
+            .catch(function(error) {
+                console.error("Gagal Memuat Data:", error);
+                wadahUlasan.innerHTML = "<p style='color:red; font-size:12px;'>Gagal memuat ulasan. Cek rules database Anda.</p>";
+            });
+        }
+
+
+        // DATA PUSAT 16 KURSUS TRAINING
+        var courseData = {
+            sketchup: { title: "SKETCHUP MODELLING Class", text: "SketchUp adalah software pemodelan 3D yang sangat populer digunakan oleh arsitek untuk mendesain ruang.", harga: "Hubungi Kami", durasi: "32 Jam", termasuk: "Sertifikat, Handbook", fasilitas: "Ruang Kelas Full AC", persyaratan: "Minimal Lulusan SMA" },
+            solidworks: { title: "SOLIDWORKS Class", text: "SOLIDWORKS adalah CAD software untuk merancang produk mekanikal secara presisi.", harga: "Hubungi Kami", durasi: "40 Jam", termasuk: "Sertifikat, Modul", fasilitas: "Laboratorium Komputer", persyaratan: "Minimal Lulusan SMK/SMA" },
+            primavera: { title: "PRIMAVERA Class", text: "Primavera adalah alat manajemen proyek skala besar untuk melacak lini masa dan anggaran proyek industri.", harga: "Hubungi Kami", durasi: "32 Jam", termasuk: "Sertifikat Resmi", fasilitas: "Coffee Break, Ruang Kelas", persyaratan: "Mahasiswa / Pekerja Sipil" },
+            pdms: { title: "Plant Design Management System (PDMS) Class", text: "PDMS merupakan sebuah program pemodelan 3D pipa dan kilang minyak komprehensif untuk industri oil & gas.", harga: "Hubungi Kami", durasi: "45 Jam", termasuk: "Sertifikat, Piping Data Book", fasilitas: "PC High Spec", persyaratan: "D3 / S1 Teknik" },
+            tekla: { title: "TEKLA STRUCTURE MODELLING Class", text: "Tekla Structures merupakan software konstruksi berbasis BIM untuk membuat desain model struktur baja detail 3D.", harga: "Hubungi Kami", durasi: "36 Jam", termasuk: "Sertifikat Kompetensi", fasilitas: "Ruang Kelas Modern", persyaratan: "Mengerti Gambar Teknik" },
+            autocad: { title: "Autocad 2D, 3D And Drafting Class", text: "Autocad adalah software gambar teknik dasar yang wajib dikuasai oleh pekerja teknik karena fleksibilitasnya.", harga: "Hubungi Kami", durasi: "30 Jam", termasuk: "Sertifikat, Kumpulan Library", fasilitas: "Bimbingan Intensif", persyaratan: "Semua Kalangan" },
+            mpt: { title: "Magnetic Particle Testing (MPT) Class", text: "Pelatihan MPT mendeteksi cacat permukaan pada material feromagnetik.", harga: "Hubungi Kami", durasi: "24 Jam", termasuk: "Sertifikat, Modul", fasilitas: "Alat Praktek MPT", persyaratan: "Minimal Lulusan SMA/SMK" },
+            ut: { title: "Ultrasonic Testing (UT) Class", text: "Pelatihan UT menggunakan gelombang suara frekuensi tinggi untuk mendeteksi cacat internal.", harga: "Hubungi Kami", durasi: "32 Jam", termasuk: "Sertifikat, Handbook", fasilitas: "Alat Uji Ultrasonic", persyaratan: "Minimal Lulusan SMA/SMK" },
+            rtfi: { title: "Radiography Testing Film Interpretation (RTFI) Class", text: "Kelas khusus membaca hasil film radiografi (Sinar-X) las industri.", harga: "Hubungi Kami", durasi: "30 Jam", termasuk: "Sertifikat NDT", fasilitas: "Viewer Film Radiografi", persyaratan: "Minimal Lulusan SMA/SMK" },
+            ect: { title: "Eddy Current Testing (ECT) Class", text: "Pengujian elektromagnetik mendeteksi cacat pada material konduktif.", harga: "Hubungi Kami", durasi: "40 Jam", termasuk: "Sertifikat Kompetensi", fasilitas: "Alat ECT Modern", persyaratan: "Minimal Lulusan SMA/SMK" },
+            paut: { title: "Phased Array Ultrasonic Testing (PAUT) Class", text: "Teknologi ultrasonik tingkat lanjut untuk visualisasi cacat pipa real-time.", harga: "Hubungi Kami", durasi: "45 Jam", termasuk: "Sertifikat Khusus", fasilitas: "PC & Alat PAUT", persyaratan: "Memiliki Dasar UT Level 2" },
+            staadpro: { title: "STAAD PRO Class", text: "Software analisis dan desain struktur bangunan menghitung kekuatan beban.", harga: "Hubungi Kami", durasi: "24 Jam", termasuk: "Sertifikat", fasilitas: "Lab Komputer AC", persyaratan: "Mahasiswa / Pekerja Sipil" },
+            sacs: { title: "SACS Class", text: "Software analisis struktur khusus untuk bangunan lepas pantai (offshore structures).", harga: "Hubungi Kami", durasi: "30 Jam", termasuk: "Sertifikat Keahlian", fasilitas: "Modul Khusus Offshore", persyaratan: "Lulusan S1 Teknik Sipil/Kelautan" },
+            rope1: { title: "Rope Access LEVEL 1 Class", text: "Pelatihan dasar teknik akses tali bekerja di ketinggian secara aman.", harga: "Hubungi Kami", durasi: "40 Jam", termasuk: "Sertifikat Internasional", fasilitas: "Alat Safety & Tower Praktek", persyaratan: "Kondisi Fisik Fit & Sehat" },
+            rope2: { title: "Rope Access LEVEL 2 Class", text: "Tingkat lanjutan berfokus pada teknik penyelamatan (rescue) korban di tali.", harga: "Hubungi Kami", durasi: "40 Jam", termasuk: "Sertifikat Level 2", fasilitas: "Tower Pelatihan Tinggi", persyaratan: "Memiliki Logbook Lvl 1" },
+            rope3: { title: "Rope Access LEVEL 3 Class", text: "Tingkat tertinggi Supervisor bertanggung jawab atas keselamatan tim di ketinggian.", harga: "Hubungi Kami", durasi: "45 Jam", termasuk: "Sertifikat Supervisor", fasilitas: "Fasilitas Ujian Lengkap", persyaratan: "Jam Terbang Tinggi di Lvl 2" }
+        };
+
         function openDetail(courseKey) {
             var customPages = document.querySelectorAll('.custom-page');
             customPages.forEach(function(p) { p.style.display = 'none'; });
@@ -1033,46 +1059,12 @@
             document.getElementById('lightbox').style.display = 'flex';
         }
 
+        // Registrasi Aplikasi PWA Offline
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('sw.js')
                 .then(function() { console.log("PWA Aktif!"); })
                 .catch(function(err) { console.log("Gagal:", err); });
         }
     </script>
-    
-    <script>
-                // FUNGSI MENERIMA DAN MEMASUKKAN ULASAN BARU
-        function tambahUlasanBaru(event) {
-            event.preventDefault(); // Mencegah halaman refresh otomatis saat kirim form
-
-            // Ambil data yang diketik pengguna
-            var nama = document.getElementById('revName').value;
-            var bintang = document.getElementById('revStars').value;
-            var komentar = document.getElementById('revComment').value;
-            var wadahUlasan = document.getElementById('reviewContainer');
-
-            // Susun kotak ulasan baru secara otomatis
-            var kotakBaru = document.createElement('div');
-            kotakBaru.className = 'review-box-item';
-            kotakBaru.innerHTML = `
-                <div class="review-item-header">
-                    <span class="reviewer-name">${nama}</span>
-                    <span class="reviewer-stars">${bintang}</span>
-                </div>
-                <div class="reviewer-comment">${komentar}</div>
-            `;
-
-            // Tempelkan ulasan baru di baris paling atas daftar komentar
-            wadahUlasan.insertBefore(kotakBaru, wadahUlasan.firstChild);
-
-            // Bersihkan kotak form ketik setelah sukses terkirim
-            document.getElementById('revName').value = '';
-            document.getElementById('revComment').value = '';
-
-            alert("Terima kasih, ulasan Anda berhasil diterbitkan!");
-        }
-    </script>
 </body>
 </html>
-
-    
