@@ -1,4 +1,4 @@
-const CACHE_NAME = 'eci-training-v46';
+const CACHE_NAME = 'eci-training-v47';
 const assets = [
   '/',
   '/index.html',
