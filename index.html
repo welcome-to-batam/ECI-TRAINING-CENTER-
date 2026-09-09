@@ -885,12 +885,12 @@
         <img id="lightboxImg" src="" style="max-width:90%; max-height:80%; border-radius:4px;">
     </div>
 
-        <!-- ======================================================= -->
+    <!-- ======================================================= -->
     <!-- LOGIKA JAVASCRIPT UTUH & PENGHUBUNG FIREBASE CLOUD      -->
     <!-- ======================================================= -->
     
-    <!-- LANGKAH 1: Memasang tautan SDK Firebase v8 yang valid (Sebelumnya kosong) -->
-    <script src="https://gstatic.com"></script>
+    <!-- 1. Muat Pustaka Modul Utama Firebase SDK Resmi via CDN -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://gstatic.com"></script>
 
      <script>
@@ -903,13 +903,13 @@
             appId: "1:705612127520:web:8deb43f67ad0a263a9cb45"
         };
 
-        // LANGKAH 2: Memastikan inisialisasi database (db) terbaca secara global
+        // Inisialisasi Firebase Database
         if (!firebase.apps.length) {
             firebase.initializeApp(firebaseConfig);
         }
         var db = firebase.firestore();
 
-        // --- Logika Menu & Navigasi (Kode Asli Anda) ---
+        // --- Logika Menu & Navigasi ---
         var menuBtn = document.getElementById('menuBtn') || document.querySelector('.menu-toggle');
         var sideMenu = document.getElementById('sideMenu');
         var overlayBtn = document.getElementById('overlayBtn') || document.querySelector('.overlay');
@@ -949,7 +949,7 @@
             }
         }
 
-        // LANGKAH 3: Fungsi Tambah Ulasan yang sudah diperbaiki agar tombol merespons aman
+        // --- Fungsi Tambah Ulasan Alumni ---
         function tambahUlasanBaru(event) {
             event.preventDefault();
             
@@ -986,7 +986,7 @@
             }
         }
 
-        // --- Fungsi Memuat Data & Data Kelas (Kode Asli Anda) ---
+        // --- Fungsi Memuat Data Ulasan ---
         function muatUlasanDariFirebase() {
             var wadahUlasan = document.getElementById('reviewContainer');
             if (!wadahUlasan || typeof db === 'undefined') return;
@@ -1009,6 +1009,7 @@
             });
         }
 
+        // --- DATA PROGRAM TRAINING (Perbaikan Typo pada rope1) ---
         var courseData = {
             sketchup: { title: "SKETCHUP MODELLING Class", text: "SketchUp adalah software pemodelan 3D.", harga: "Hubungi Kami", durasi: "32 Jam", termasuk: "Sertifikat", fasilitas: "Kelas AC", persyaratan: "SMA" },
             solidworks: { title: "SOLIDWORKS Class", text: "SOLIDWORKS adalah CAD software.", harga: "Hubungi Kami", durasi: "40 Jam", termasuk: "Sertifikat", fasilitas: "Lab", persyaratan: "SMK" },
@@ -1023,7 +1024,7 @@
             paut: { title: "PAUT Class", text: "Ultrasonik lanjut.", harga: "Hubungi Kami", durasi: "45 Jam", termasuk: "Sertifikat", fasilitas: "Alat", persyaratan: "UT Lvl 2" },
             staadpro: { title: "STAAD PRO Class", text: "Analisis struktur.", harga: "Hubungi Kami", durasi: "24 Jam", termasuk: "Sertifikat", fasilitas: "Lab", persyaratan: "Sipil" },
             sacs: { title: "SACS Class", text: "Lepas pantai.", harga: "Hubungi Kami", durasi: "30 Jam", termasuk: "Sertifikat", fasilitas: "Modul", persyaratan: "S1 Teknik" },
-            rope1: { title: "Rope Access Lvl 1", text: "Akses tali dasar.", harga: "Hubungi Kami", durasi: "40 Jam",短期 S100: "Sertifikat", fasilitas: "Alat", persyaratan: "Sehat" },
+            rope1: { title: "Rope Access Lvl 1", text: "Akses tali dasar.", harga: "Hubungi Kami", durasi: "40 Jam", termasuk: "Sertifikat", fasilitas: "Alat", persyaratan: "Sehat" },
             rope2: { title: "Rope Access Lvl 2", text: "Penyelamatan tingkat lanjut.", harga: "Hubungi Kami", durasi: "40 Jam", termasuk: "Sertifikat", fasilitas: "Tower", persyaratan: "Lvl 1" },
             rope3: { title: "Rope Access Lvl 3", text: "Supervisor ketinggian.", harga: "Hubungi Kami", durasi: "45 Jam", termasuk: "Sertifikat", fasilitas: "Ujian", persyaratan: "Lvl 2" }
         };
