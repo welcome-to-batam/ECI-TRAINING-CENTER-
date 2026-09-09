@@ -893,23 +893,21 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://gstatic.com"></script>
 
-     <script>
+    <script>
         const firebaseConfig = {
             apiKey: "AIzaSyDLJYbdBeFkPSrnEqZl1hDHiSQzCQVT5GQ",
-            authDomain: "://firebaseapp.com", 
+            authDomain: "://firebaseapp.com",
             projectId: "eci-training-center",
             storageBucket: "eci-training-center.firebasestorage.app",
             messagingSenderId: "705612127520",
             appId: "1:705612127520:web:8deb43f67ad0a263a9cb45"
         };
 
-        // Inisialisasi Firebase Database
-        if (!firebase.apps.length) {
+        if (typeof firebase !== 'undefined' && !firebase.apps.length) {
             firebase.initializeApp(firebaseConfig);
+            var db = firebase.firestore();
         }
-        var db = firebase.firestore();
 
-        // --- Logika Menu & Navigasi ---
         var menuBtn = document.getElementById('menuBtn') || document.querySelector('.menu-toggle');
         var sideMenu = document.getElementById('sideMenu');
         var overlayBtn = document.getElementById('overlayBtn') || document.querySelector('.overlay');
@@ -949,44 +947,25 @@
             }
         }
 
-        // --- Fungsi Tambah Ulasan Alumni ---
         function tambahUlasanBaru(event) {
             event.preventDefault();
-            
-            var btnSubmit = event.target.querySelector('.btn-submit-review');
-            if (btnSubmit) {
-                btnSubmit.disabled = true;
-                btnSubmit.innerText = "Mengirim...";
-            }
-
             var namaInput = document.getElementById('revName').value;
             var bintangInput = document.getElementById('revStars').value;
             var komentarInput = document.getElementById('revComment').value;
 
             if (typeof db !== 'undefined') {
                 db.collection("ulasan_alumni").add({
-                    nama: namaInput, 
-                    bintang: bintangInput, 
-                    komentar: komentarInput,
+                    nama: namaInput, bintang: bintangInput, komentar: komentarInput,
                     waktu: firebase.firestore.FieldValue.serverTimestamp()
                 }).then(function() {
                     alert("Ulasan berhasil disimpan!");
                     document.getElementById('revName').value = '';
                     document.getElementById('revComment').value = '';
                     muatUlasanDariFirebase();
-                }).catch(function(err) { 
-                    alert("Gagal kirim, cek rules Firestore."); 
-                    console.error(err);
-                }).finally(function() {
-                    if (btnSubmit) {
-                        btnSubmit.disabled = false;
-                        btnSubmit.innerText = "Kirim Ulasan";
-                    }
-                });
+                }).catch(function(err) { alert("Gagal kirim, cek rules Firestore."); });
             }
         }
 
-        // --- Fungsi Memuat Data Ulasan ---
         function muatUlasanDariFirebase() {
             var wadahUlasan = document.getElementById('reviewContainer');
             if (!wadahUlasan || typeof db === 'undefined') return;
@@ -1004,12 +983,9 @@
                     item.innerHTML = `<div class="review-item-header"><span class="reviewer-name">${data.nama}</span><span class="reviewer-stars">${data.bintang}</span></div><div class="reviewer-comment">${data.komentar}</div>`;
                     wadahUlasan.appendChild(item);
                 });
-            }).catch(function(error) {
-                console.error("Gagal memuat ulasan:", error);
             });
         }
 
-        // --- DATA PROGRAM TRAINING (Perbaikan Typo pada rope1) ---
         var courseData = {
             sketchup: { title: "SKETCHUP MODELLING Class", text: "SketchUp adalah software pemodelan 3D.", harga: "Hubungi Kami", durasi: "32 Jam", termasuk: "Sertifikat", fasilitas: "Kelas AC", persyaratan: "SMA" },
             solidworks: { title: "SOLIDWORKS Class", text: "SOLIDWORKS adalah CAD software.", harga: "Hubungi Kami", durasi: "40 Jam", termasuk: "Sertifikat", fasilitas: "Lab", persyaratan: "SMK" },
@@ -1053,6 +1029,6 @@
             document.getElementById('lightboxImg').src = src;
             document.getElementById('lightbox').style.display = 'flex';
         }
-    </script>
+ </script>
 </body>
 </html>
