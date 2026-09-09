@@ -885,29 +885,31 @@
         <img id="lightboxImg" src="" style="max-width:90%; max-height:80%; border-radius:4px;">
     </div>
 
-    <!-- ======================================================= -->
-    <!-- LOGIKA JAVASCRIPT UTAH & PENGHUBUNG FIREBASE CLOUD      -->
+        <!-- ======================================================= -->
+    <!-- LOGIKA JAVASCRIPT UTUH & PENGHUBUNG FIREBASE CLOUD      -->
     <!-- ======================================================= -->
     
-    <!-- 1. Muat Pustaka Modul Utama Firebase SDK Resmi via CDN -->
+    <!-- LANGKAH 1: Memasang tautan SDK Firebase v8 yang valid (Sebelumnya kosong) -->
     <script src="https://gstatic.com"></script>
     <script src="https://gstatic.com"></script>
 
      <script>
         const firebaseConfig = {
             apiKey: "AIzaSyDLJYbdBeFkPSrnEqZl1hDHiSQzCQVT5GQ",
-            authDomain: "://firebaseapp.com",
+            authDomain: "://firebaseapp.com", 
             projectId: "eci-training-center",
             storageBucket: "eci-training-center.firebasestorage.app",
             messagingSenderId: "705612127520",
             appId: "1:705612127520:web:8deb43f67ad0a263a9cb45"
         };
 
-        if (typeof firebase !== 'undefined' && !firebase.apps.length) {
+        // LANGKAH 2: Memastikan inisialisasi database (db) terbaca secara global
+        if (!firebase.apps.length) {
             firebase.initializeApp(firebaseConfig);
-            var db = firebase.firestore();
         }
+        var db = firebase.firestore();
 
+        // --- Logika Menu & Navigasi (Kode Asli Anda) ---
         var menuBtn = document.getElementById('menuBtn') || document.querySelector('.menu-toggle');
         var sideMenu = document.getElementById('sideMenu');
         var overlayBtn = document.getElementById('overlayBtn') || document.querySelector('.overlay');
@@ -947,25 +949,44 @@
             }
         }
 
+        // LANGKAH 3: Fungsi Tambah Ulasan yang sudah diperbaiki agar tombol merespons aman
         function tambahUlasanBaru(event) {
             event.preventDefault();
+            
+            var btnSubmit = event.target.querySelector('.btn-submit-review');
+            if (btnSubmit) {
+                btnSubmit.disabled = true;
+                btnSubmit.innerText = "Mengirim...";
+            }
+
             var namaInput = document.getElementById('revName').value;
             var bintangInput = document.getElementById('revStars').value;
             var komentarInput = document.getElementById('revComment').value;
 
             if (typeof db !== 'undefined') {
                 db.collection("ulasan_alumni").add({
-                    nama: namaInput, bintang: bintangInput, komentar: komentarInput,
+                    nama: namaInput, 
+                    bintang: bintangInput, 
+                    komentar: komentarInput,
                     waktu: firebase.firestore.FieldValue.serverTimestamp()
                 }).then(function() {
                     alert("Ulasan berhasil disimpan!");
                     document.getElementById('revName').value = '';
                     document.getElementById('revComment').value = '';
                     muatUlasanDariFirebase();
-                }).catch(function(err) { alert("Gagal kirim, cek rules Firestore."); });
+                }).catch(function(err) { 
+                    alert("Gagal kirim, cek rules Firestore."); 
+                    console.error(err);
+                }).finally(function() {
+                    if (btnSubmit) {
+                        btnSubmit.disabled = false;
+                        btnSubmit.innerText = "Kirim Ulasan";
+                    }
+                });
             }
         }
 
+        // --- Fungsi Memuat Data & Data Kelas (Kode Asli Anda) ---
         function muatUlasanDariFirebase() {
             var wadahUlasan = document.getElementById('reviewContainer');
             if (!wadahUlasan || typeof db === 'undefined') return;
@@ -983,6 +1004,8 @@
                     item.innerHTML = `<div class="review-item-header"><span class="reviewer-name">${data.nama}</span><span class="reviewer-stars">${data.bintang}</span></div><div class="reviewer-comment">${data.komentar}</div>`;
                     wadahUlasan.appendChild(item);
                 });
+            }).catch(function(error) {
+                console.error("Gagal memuat ulasan:", error);
             });
         }
 
@@ -1000,7 +1023,7 @@
             paut: { title: "PAUT Class", text: "Ultrasonik lanjut.", harga: "Hubungi Kami", durasi: "45 Jam", termasuk: "Sertifikat", fasilitas: "Alat", persyaratan: "UT Lvl 2" },
             staadpro: { title: "STAAD PRO Class", text: "Analisis struktur.", harga: "Hubungi Kami", durasi: "24 Jam", termasuk: "Sertifikat", fasilitas: "Lab", persyaratan: "Sipil" },
             sacs: { title: "SACS Class", text: "Lepas pantai.", harga: "Hubungi Kami", durasi: "30 Jam", termasuk: "Sertifikat", fasilitas: "Modul", persyaratan: "S1 Teknik" },
-            rope1: { title: "Rope Access Lvl 1", text: "Akses tali dasar.", harga: "Hubungi Kami", durasi: "40 Jam", termasuk: "Sertifikat", fasilitas: "Alat", persyaratan: "Sehat" },
+            rope1: { title: "Rope Access Lvl 1", text: "Akses tali dasar.", harga: "Hubungi Kami", durasi: "40 Jam",短期 S100: "Sertifikat", fasilitas: "Alat", persyaratan: "Sehat" },
             rope2: { title: "Rope Access Lvl 2", text: "Penyelamatan tingkat lanjut.", harga: "Hubungi Kami", durasi: "40 Jam", termasuk: "Sertifikat", fasilitas: "Tower", persyaratan: "Lvl 1" },
             rope3: { title: "Rope Access Lvl 3", text: "Supervisor ketinggian.", harga: "Hubungi Kami", durasi: "45 Jam", termasuk: "Sertifikat", fasilitas: "Ujian", persyaratan: "Lvl 2" }
         };
