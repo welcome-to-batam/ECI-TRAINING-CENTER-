@@ -653,7 +653,7 @@
         <h2 class="page-title">Alumni Reviews</h2>
         <div class="page-body">
             
-            <!-- FORMULIR INPUT BAGI ALUMNI -->
+            <!-- FORMULIR INPUT BAGI ALUMNI (SUDAH DIHUBUNGKAN KE FIREBASE) -->
             <form class="review-form" onsubmit="tambahUlasanBaru(event)">
                 <div class="form-group">
                     <label>NAMA LENGKAP / ALUMNI</label>
@@ -673,6 +673,7 @@
                     <label>ULASAN, KRITIK & SARAN</label>
                     <textarea id="revComment" rows="3" placeholder="Tuliskan pengalaman training Anda di ECI..." required></textarea>
                 </div>
+                <!-- Tombol Kirim bertipe submit untuk memicu onsubmit di atas -->
                 <button type="submit" class="btn-submit-review">Kirim Ulasan</button>
             </form>
 
