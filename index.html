@@ -894,6 +894,7 @@
     <script src="https://gstatic.com"></script>
 
         <script>
+        // Konfigurasi Firebase
         const firebaseConfig = {
             apiKey: "AIzaSyDLJYbdBeFkPSrnEqZl1hDHiSQzCQVT5GQ",
             authDomain: "://firebaseapp.com",
@@ -903,10 +904,11 @@
             appId: "1:705612127520:web:8deb43f67ad0a263a9cb45"
         };
 
-        if (typeof firebase !== 'undefined' && !firebase.apps.length) {
+        // Inisialisasi Aman Tanpa Kondisi yang Memblokir
+        if (!firebase.apps.length) {
             firebase.initializeApp(firebaseConfig);
-            var db = firebase.firestore();
         }
+        const db = firebase.firestore();
 
         var menuBtn = document.getElementById('menuBtn') || document.querySelector('.menu-toggle');
         var sideMenu = document.getElementById('sideMenu');
@@ -917,19 +919,16 @@
             if (overlayBtn) overlayBtn.classList.toggle('active');
         }
 
-        if (menuBtn) {
-            menuBtn.addEventListener('click', toggleMenu);
-        }
-        if (overlayBtn) {
-            overlayBtn.addEventListener('click', toggleMenu);
-        }
+        if (menuBtn) menuBtn.addEventListener('click', toggleMenu);
+        if (overlayBtn) overlayBtn.addEventListener('click', toggleMenu);
 
         function navigateTo(pageId) {
             if (sideMenu) sideMenu.classList.remove('active');
             if (overlayBtn) overlayBtn.classList.remove('active');
             
-            var pages = document.querySelectorAll('.custom-page, .detail-page');
-            pages.forEach(function(p) { p.style.display = 'none'; });
+            document.querySelectorAll('.custom-page, .detail-page').forEach(function(p) {
+                p.style.display = 'none';
+            });
             
             if (pageId === 'home') {
                 window.scrollTo(0, 0);
@@ -942,47 +941,68 @@
                 targetPage.scrollTop = 0;
             }
 
-            if (pageId === 'pageReview' && typeof muatUlasanDariFirebase === 'function') {
+            if (pageId === 'pageReview') {
                 muatUlasanDariFirebase();
             }
         }
 
         function tambahUlasanBaru(event) {
             event.preventDefault();
-            var namaInput = document.getElementById('revName').value;
+            
+            var namaInput = document.getElementById('revName').value.trim();
             var bintangInput = document.getElementById('revStars').value;
-            var komentarInput = document.getElementById('revComment').value;
+            var komentarInput = document.getElementById('revComment').value.trim();
 
-            if (typeof db !== 'undefined') {
-                db.collection("ulasan_alumni").add({
-                    nama: namaInput, bintang: bintangInput, komentar: komentarInput,
-                    waktu: firebase.firestore.FieldValue.serverTimestamp()
-                }).then(function() {
-                    alert("Ulasan berhasil disimpan!");
-                    document.getElementById('revName').value = '';
-                    document.getElementById('revComment').value = '';
-                    muatUlasanDariFirebase();
-                }).catch(function(err) { alert("Gagal kirim, cek rules Firestore."); });
+            if (!namaInput || !komentarInput) {
+                alert("Mohon isi semua kolom ulasan!");
+                return;
             }
+
+            db.collection("ulasan_alumni").add({
+                nama: namaInput,
+                bintang: bintangInput,
+                komentar: komentarInput,
+                waktu: firebase.firestore.FieldValue.serverTimestamp()
+            })
+            .then(function() {
+                alert("Terima kasih, ulasan berhasil dikirim!");
+                document.getElementById('revName').value = '';
+                document.getElementById('revComment').value = '';
+                muatUlasanDariFirebase();
+            })
+            .catch(function(err) {
+                console.error("Error detail:", err);
+                alert("Gagal mengirim! Pastikan tab Rules Cloud Firestore di Firebase sudah diubah menjadi allow read, write: if true;");
+            });
         }
 
         function muatUlasanDariFirebase() {
             var wadahUlasan = document.getElementById('reviewContainer');
-            if (!wadahUlasan || typeof db === 'undefined') return;
+            if (!wadahUlasan) return;
             
-            db.collection("ulasan_alumni").orderBy("waktu", "desc").get().then(function(snapshot) {
+            db.collection("ulasan_alumni").orderBy("waktu", "desc").get()
+            .then(function(snapshot) {
                 wadahUlasan.innerHTML = "";
                 if (snapshot.empty) {
-                    wadahUlasan.innerHTML = "<p style='color:#777; font-size:13px;'>Belum ada ulasan.</p>";
+                    wadahUlasan.innerHTML = "<p style='color:#777; font-size:13px;'>Belum ada ulasan alumni.</p>";
                     return;
                 }
                 snapshot.forEach(function(doc) {
                     var data = doc.data();
                     var item = document.createElement('div');
                     item.className = 'review-box-item';
-                    item.innerHTML = `<div class="review-item-header"><span class="reviewer-name">${data.nama}</span><span class="reviewer-stars">${data.bintang}</span></div><div class="reviewer-comment">${data.komentar}</div>`;
+                    item.innerHTML = `
+                        <div class="review-item-header">
+                            <span class="reviewer-name">${data.nama}</span>
+                            <span class="reviewer-stars">${data.bintang}</span>
+                        </div>
+                        <div class="reviewer-comment">${data.komentar}</div>
+                    `;
                     wadahUlasan.appendChild(item);
                 });
+            })
+            .catch(function(err) {
+                console.error("Gagal load:", err);
             });
         }
 
@@ -1029,6 +1049,6 @@
             document.getElementById('lightboxImg').src = src;
             document.getElementById('lightbox').style.display = 'flex';
         }
-</script>
+    </script>
 </body>
 </html>
