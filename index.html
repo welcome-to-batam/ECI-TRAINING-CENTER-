@@ -647,6 +647,38 @@
             color: #555;
             line-height: 1.5;
         }
+.review-item-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.reviewer-avatar {
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+    border-radius: 50%;
+    color: #fff;
+    font-weight: bold;
+    font-size: 17px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.reviewer-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.reviewer-time {
+    font-size: 11px;
+    color: #999;
+}
+
+.reviewer-stars {
+    margin-left: auto; /* bintang tetap di kanan */
+}
     </style>
 
     <div class="custom-page" id="pageReview">
@@ -967,24 +999,53 @@
         }
 
         function muatUlasanDariFirebase() {
-            var wadahUlasan = document.getElementById('reviewContainer');
-            if (!wadahUlasan || typeof db === 'undefined') return;
-            
-            db.collection("ulasan_alumni").orderBy("waktu", "desc").get().then(function(snapshot) {
-                wadahUlasan.innerHTML = "";
-                if (snapshot.empty) {
-                    wadahUlasan.innerHTML = "<p style='color:#777; font-size:13px;'>Belum ada ulasan.</p>";
-                    return;
-                }
-                snapshot.forEach(function(doc) {
-                    var data = doc.data();
-                    var item = document.createElement('div');
-                    item.className = 'review-box-item';
-                    item.innerHTML = `<div class="review-item-header"><span class="reviewer-name">${data.nama}</span><span class="reviewer-stars">${data.bintang}</span></div><div class="reviewer-comment">${data.komentar}</div>`;
-                    wadahUlasan.appendChild(item);
-                });
-            });
+    var wadahUlasan = document.getElementById('reviewContainer');
+    if (!wadahUlasan || typeof db === 'undefined') return;
+
+    db.collection("ulasan_alumni").orderBy("waktu", "desc").get().then(function(snapshot) {
+        wadahUlasan.innerHTML = "";
+        if (snapshot.empty) {
+            wadahUlasan.innerHTML = "<p style='color:#777; font-size:13px;'>Belum ada ulasan.</p>";
+            return;
         }
+        snapshot.forEach(function(doc) {
+            var data = doc.data();
+            var inisial = (data.nama || "A").charAt(0).toUpperCase();
+            
+            // Warna avatar beda-beda tiap orang
+            var paletWarna = ['#28a745', '#007bff', '#fd7e14', '#e83e8c', '#6f42c1'];
+            var warna = paletWarna[(data.nama || "").length % paletWarna.length];
+
+            var item = document.createElement('div');
+            item.className = 'review-box-item';
+            item.innerHTML = `
+                <div class="review-item-header">
+                    <div class="reviewer-avatar" style="background:${warna}">${inisial}</div>
+                    <div class="reviewer-info">
+                        <span class="reviewer-name">${data.nama}</span>
+                        <span class="reviewer-time">${waktuRelatif(data.waktu)}</span>
+                    </div>
+                    <span class="reviewer-stars">${data.bintang}</span>
+                </div>
+                <div class="reviewer-comment">${data.komentar}</div>`;
+            wadahUlasan.appendChild(item);
+        });
+    });
+}
+
+// Fungsi bantu: ubah timestamp jadi "2 hari lalu"
+function waktuRelatif(timestamp) {
+    if (!timestamp) return '';
+    var selisih = Date.now() - timestamp.toMillis();
+    var menit = Math.floor(selisih / 60000);
+    if (menit < 1) return "Baru saja";
+    if (menit < 60) return menit + " menit lalu";
+    var jam = Math.floor(menit / 60);
+    if (jam < 24) return jam + " jam lalu";
+    var hari = Math.floor(jam / 24);
+    if (hari < 30) return hari + " hari lalu";
+    return Math.floor(hari / 30) + " bulan lalu";
+    }
 
         var courseData = {
             sketchup: { title: "SKETCHUP MODELLING Class", text: "SketchUp adalah software pemodelan 3D.", harga: "Hubungi Kami", durasi: "32 Jam", termasuk: "Sertifikat", fasilitas: "Kelas AC", persyaratan: "SMA" },
