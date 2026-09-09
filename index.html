@@ -404,6 +404,7 @@
         <a href="javascript:void(0)" class="menu-item" onclick="navigateTo('pageTraining')">TRAINING</a>
         <a href="javascript:void(0)" class="menu-item" onclick="navigateTo('pageAbout')">ABOUT US</a>
         <a href="javascript:void(0)" class="menu-item" onclick="navigateTo('pageGallery')">GALLERY</a>
+        <a href="javascript:void(0)" class="menu-item" onclick="navigateTo('pageReview')">ALUMNI REVIEWS</a>
         <a href="javascript:void(0)" class="menu-item" onclick="navigateTo('home')">CERTIFICATE VERIFICATION</a>
         <a href="javascript:void(0)" class="menu-item" onclick="navigateTo('pageContact')">CONTACT US</a>
     </div>
@@ -555,6 +556,154 @@
                     </a>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- ======================================================= -->
+    <!-- HALAMAN REVIEWS / TESTIMONI INTERAKTIF                  -->
+    <!-- ======================================================= -->
+    <style>
+        /* Desain Formulir Ulasan */
+        .review-form {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            border: 1px solid #e2e8f0;
+            text-align: left;
+        }
+        .form-group {
+            margin-bottom: 12px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 12px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 13px;
+            box-sizing: border-box;
+            font-family: inherit;
+        }
+        .btn-submit-review {
+            width: 100%;
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            padding: 12px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-size: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .btn-submit-review:active {
+            transform: scale(0.98);
+        }
+
+        /* Desain Daftar Komentar Ulasan Terkirim */
+        .review-list-title {
+            font-size: 15px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #cbd5e1;
+            padding-bottom: 5px;
+            text-align: left;
+        }
+        .review-box-item {
+            background: #ffffff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            margin-bottom: 15px;
+            border: 1px solid #e2e8f0;
+            text-align: left;
+        }
+        .review-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+        .reviewer-name {
+            font-weight: bold;
+            color: #1a252f;
+            font-size: 13px;
+        }
+        .reviewer-stars {
+            color: #f1c40f; /* Warna kuning emas untuk bintang */
+            font-size: 12px;
+        }
+        .reviewer-comment {
+            font-size: 13px;
+            color: #555;
+            line-height: 1.5;
+        }
+    </style>
+
+    <div class="custom-page" id="pageReview">
+        <h2 class="page-title">Alumni Reviews</h2>
+        <div class="page-body">
+            
+            <!-- FORMULIR INPUT BAGI ALUMNI -->
+            <form class="review-form" onsubmit="tambahUlasanBaru(event)">
+                <div class="form-group">
+                    <label>NAMA LENGKAP / ALUMNI</label>
+                    <input type="text" id="revName" placeholder="Masukkan nama Anda..." required>
+                </div>
+                <div class="form-group">
+                    <label>RATING KELAS</label>
+                    <select id="revStars">
+                        <option value="⭐⭐⭐⭐⭐">⭐⭐⭐⭐⭐ (Sangat Puas)</option>
+                        <option value="⭐⭐⭐⭐">⭐⭐⭐⭐ (Puas)</option>
+                        <option value="⭐⭐⭐">⭐⭐⭐ (Cukup)</option>
+                        <option value="⭐⭐">⭐⭐ (Kurang)</option>
+                        <option value="⭐">⭐ (Buruk)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>ULASAN, KRITIK & SARAN</label>
+                    <textarea id="revComment" rows="3" placeholder="Tuliskan pengalaman training Anda di ECI..." required></textarea>
+                </div>
+                <button type="submit" class="btn-submit-review">Kirim Ulasan</button>
+            </form>
+
+            <!-- DAFTAR ULASAN YANG MUNCUL -->
+            <div class="review-list-title">Daftar Ulasan Alumni</div>
+            <div id="reviewContainer">
+                
+                <!-- Ulasan Contoh 1 -->
+                <div class="review-box-item">
+                    <div class="review-item-header">
+                        <span class="reviewer-name">Budi Santoso (Alumni PDMS)</span>
+                        <span class="reviewer-stars">⭐⭐⭐⭐⭐</span>
+                    </div>
+                    <div class="reviewer-comment">
+                        Materi yang diajarkan sangat padat dan langsung fokus ke kebutuhan industri oil & gas. Instrukturnya sangat berpengalaman, fasilitas komputernya kencang. Recommended!
+                    </div>
+                </div>
+
+                <!-- Ulasan Contoh 2 -->
+                <div class="review-box-item">
+                    <div class="review-item-header">
+                        <span class="reviewer-name">Siti Aminah (Alumni AutoCAD)</span>
+                        <span class="reviewer-stars">⭐⭐⭐⭐⭐</span>
+                    </div>
+                    <div class="reviewer-comment">
+                        Dari yang awalnya tidak tahu apa-apa soal gambar teknik, sekarang sudah lancar bikin drafting proyek 2D sendiri setelah ikutan training intensif di ECI. Terima kasih ECI!
+                    </div>
+                </div>
+
+            </div>
+
         </div>
     </div>
 
@@ -888,6 +1037,39 @@
             navigator.serviceWorker.register('sw.js')
                 .then(function() { console.log("PWA Aktif!"); })
                 .catch(function(err) { console.log("Gagal:", err); });
+        }
+    </script>
+    
+    <script>
+                // FUNGSI MENERIMA DAN MEMASUKKAN ULASAN BARU
+        function tambahUlasanBaru(event) {
+            event.preventDefault(); // Mencegah halaman refresh otomatis saat kirim form
+
+            // Ambil data yang diketik pengguna
+            var nama = document.getElementById('revName').value;
+            var bintang = document.getElementById('revStars').value;
+            var komentar = document.getElementById('revComment').value;
+            var wadahUlasan = document.getElementById('reviewContainer');
+
+            // Susun kotak ulasan baru secara otomatis
+            var kotakBaru = document.createElement('div');
+            kotakBaru.className = 'review-box-item';
+            kotakBaru.innerHTML = `
+                <div class="review-item-header">
+                    <span class="reviewer-name">${nama}</span>
+                    <span class="reviewer-stars">${bintang}</span>
+                </div>
+                <div class="reviewer-comment">${komentar}</div>
+            `;
+
+            // Tempelkan ulasan baru di baris paling atas daftar komentar
+            wadahUlasan.insertBefore(kotakBaru, wadahUlasan.firstChild);
+
+            // Bersihkan kotak form ketik setelah sukses terkirim
+            document.getElementById('revName').value = '';
+            document.getElementById('revComment').value = '';
+
+            alert("Terima kasih, ulasan Anda berhasil diterbitkan!");
         }
     </script>
 </body>
